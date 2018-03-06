@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossFollowPlayer : MonoBehaviour {
 
     public GameObject player;
-    float moveSpeed = 4;
+    float moveSpeed = 1;
     float MaxDist = 10;
     float minDist = 0;
 

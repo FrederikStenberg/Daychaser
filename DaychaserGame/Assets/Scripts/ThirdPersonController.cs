@@ -36,6 +36,7 @@ public class ThirdPersonController : MonoBehaviour
     Vector3 velocity = Vector3.zero;
     Quaternion targetRotation;
     Rigidbody rBody;
+    Animator anim;
     float forwardInput, turnInput, jumpInput;
 
     public Quaternion TargetRotation
@@ -106,6 +107,7 @@ public class ThirdPersonController : MonoBehaviour
         {
             // Jump
             velocity.y = moveSetting.jumpVel;
+            this.GetComponent<Animator>().Play("Jump", -1, 0.0f);
         }
         else if (jumpInput == 0 && Grounded())
         {

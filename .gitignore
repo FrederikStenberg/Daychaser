@@ -1,9 +1,11 @@
-/DaychaserGame/[Ll]ibrary/
-/DaychaserGame/[Tt]emp/
-/DaychaserGame/[Oo]bj/
-/DaychaserGame/[Bb]uild/
-/DaychaserGame/[Bb]uilds/
-/DaychaserGame/Assets/AssetStoreTools*
+#/[Ll]ibrary/
+#/[Tt]emp/
+#/[Oo]bj/
+#/[Bb]uild/
+#/[Bb]uilds/
+#/Assets/AssetStoreTools*
+Temp/
+
 
 # Visual Studio 2015 cache directory
 /.vs/

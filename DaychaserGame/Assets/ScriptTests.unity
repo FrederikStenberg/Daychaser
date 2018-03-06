@@ -426,9 +426,10 @@ Transform:
   m_LocalRotation: {x: 0.21251555, y: 0.3250606, z: -0.0752157, w: 0.9184309}
   m_LocalPosition: {x: 0.305, y: 0.998, z: 0.2236805}
   m_LocalScale: {x: 0.20898849, y: 0.20898849, z: 0.51182747}
-  m_Children: []
+  m_Children:
+  - {fileID: 2133513525}
   m_Father: {fileID: 687879073}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 26.057001, y: 38.981003, z: 0}
 --- !u!23 &1712497175
 MeshRenderer:
@@ -512,7 +513,7 @@ Transform:
   m_LocalScale: {x: 0.20898849, y: 0.2089885, z: 0.51182747}
   m_Children: []
   m_Father: {fileID: 687879073}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 26.057001, y: -40.708, z: 0}
 --- !u!23 &1719027845
 MeshRenderer:
@@ -774,6 +775,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114849275069893972, guid: 8e614f35e2ad1e144a554dc03c90dae7,
+        type: 2}
+      propertyPath: moveSetting.jumpVel
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 95803396521580688, guid: 8e614f35e2ad1e144a554dc03c90dae7,
+        type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a7f07e9634a4c7e4485cc500e112f66c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e614f35e2ad1e144a554dc03c90dae7, type: 2}
   m_IsPrefabParent: 0
@@ -972,13 +983,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2133513524}
-  m_LocalRotation: {x: 0.14718953, y: 0.29541254, z: -0.050227005, w: 0.9426261}
-  m_LocalPosition: {x: 0.52099997, y: 1.222, z: 0.49768043}
-  m_LocalScale: {x: 0.20061168, y: 1.0586928, z: 0.20061168}
+  m_LocalRotation: {x: 0.0006371438, y: -0.014173476, z: 0.059580132, w: 0.9981227}
+  m_LocalPosition: {x: -0.021310832, y: 1.6961429, z: 0.42010427}
+  m_LocalScale: {x: 0.95730835, y: 5.0051055, z: 0.40606105}
   m_Children: []
-  m_Father: {fileID: 687879073}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 17.888, y: 34.728, z: -0.46500003}
+  m_Father: {fileID: 1712497174}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0.17, y: -1.6170001, z: 6.8300004}
 --- !u!23 &2133513526
 MeshRenderer:
   m_ObjectHideFlags: 0

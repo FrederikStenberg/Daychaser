@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/ScriptTests.unity
-=======
-- path: Assets/LevelDesign.unity
->>>>>>> a941804bc43d5f2858d449e0f20bb3e9c6fbb54d
+- path: Assets/Level Prototype.unity
   isLoaded: 1
   isActive: 1

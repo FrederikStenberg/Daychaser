@@ -6,7 +6,9 @@ public class PressurePlate : MonoBehaviour
     [HideInInspector]
     public bool pressed = false;
 
-    void OnCollisionEnter(Collision col)
+    public GameObject MovingPlatForm4;
+
+    void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.name == "Plate")
         {
@@ -17,12 +19,20 @@ public class PressurePlate : MonoBehaviour
         }
         if (pressed == true)
         {
-
+            MovingPlatForm4.GetComponent<Elevator>().enabled = true;
         }
     }
-    void OnCollisionExit(Collision col)
+
+    void OnTriggerExit(Collider col)
     {
-        pressed = false;
-        Debug.Log("OFF");
+        if (col.gameObject.name == "Plate")
+        {
+            pressed = false;
+            Debug.Log("OFF");
+        }
+        if (pressed == false)
+        {
+            MovingPlatForm4.GetComponent<Elevator>().enabled = false;
+        }
     }
 }

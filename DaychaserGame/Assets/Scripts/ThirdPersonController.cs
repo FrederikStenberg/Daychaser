@@ -6,10 +6,10 @@ public class ThirdPersonController : MonoBehaviour
     [System.Serializable] //This allows us to see the classes from the inspector
     public class MoveSettings
     {
-        public float forwardVel = 12;
+        public float forwardVel = 6;
         public float rotateVel = 100;
-        public float jumpVel = 25;
-        public float distToGrounded = 0.8f;
+        public float jumpVel = 10;
+        public float distToGrounded = 1f;
         public LayerMask ground;
     }
 
@@ -25,6 +25,8 @@ public class ThirdPersonController : MonoBehaviour
         public string FORWARD_AXIS = "Vertical";
         public string TURN_AXIS = "Horizontal";
         public string JUMP_AXIS = "Jump";
+        public string MOUSECAMERA_AXIS = "Mouse X";
+        public string CONTROLLERCAMERA_AXIS = "Mouse Y";
     }
 
     public MoveSettings moveSetting = new MoveSettings();
@@ -37,7 +39,7 @@ public class ThirdPersonController : MonoBehaviour
     Quaternion targetRotation;
     Rigidbody rBody;
     Animator anim;
-    float forwardInput, turnInput, jumpInput;
+    float forwardInput, turnInput, jumpInput, mouseturnInput, controllerturnInput;
 
     public Quaternion TargetRotation
     {
@@ -56,13 +58,15 @@ public class ThirdPersonController : MonoBehaviour
             rBody = GetComponent<Rigidbody>();
         else
             Debug.Log("The character does not have a rigid body attached");
-        forwardInput = turnInput = jumpInput = 0;
+        forwardInput = turnInput = jumpInput = mouseturnInput = controllerturnInput = 0;
     }
 
     void GetInput()
     {
         forwardInput = Input.GetAxis(inputSetting.FORWARD_AXIS); //Input.GetAxis gets an interpolated value
         turnInput = Input.GetAxis(inputSetting.TURN_AXIS);
+        mouseturnInput = Input.GetAxis(inputSetting.MOUSECAMERA_AXIS);
+        controllerturnInput = Input.GetAxis(inputSetting.CONTROLLERCAMERA_AXIS);
         jumpInput = Input.GetAxisRaw(inputSetting.JUMP_AXIS); //Input.GetAxisRaw gets a non-interpolated value (-1, 0 or 1)
     }
     
@@ -89,14 +93,24 @@ public class ThirdPersonController : MonoBehaviour
         }
         else
             // Zero velocity
-            velocity.z = 0; 
+            velocity.z = 0;
+
+
+        if (Mathf.Abs(turnInput) > inputSetting.inputDelay)
+        {
+            velocity.x = moveSetting.forwardVel * turnInput;
+        }
+        else
+            // Zero velocity
+            velocity.x = 0;
     }
 
     void Turn()
     {
-        if (Mathf.Abs(turnInput) > inputSetting.inputDelay)
+        
+        if (Mathf.Abs(mouseturnInput) > inputSetting.inputDelay || Mathf.Abs(controllerturnInput) > inputSetting.inputDelay)
         {
-            targetRotation *= Quaternion.AngleAxis(moveSetting.rotateVel * turnInput * Time.deltaTime, Vector3.up);
+            targetRotation *= Quaternion.AngleAxis(moveSetting.rotateVel * (mouseturnInput + controllerturnInput) * Time.deltaTime, Vector3.up);
         }
         transform.rotation = targetRotation;
     }

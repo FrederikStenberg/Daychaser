@@ -1375,7 +1375,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 892357422}
   lookSmooth: 0.09
-  offsetFromTarget: {x: 0, y: 2, z: -3}
+  offsetFromTarget: {x: 0, y: 1, z: -3}
   xTilt: 10
 --- !u!1 &1487428861
 GameObject:
@@ -1718,6 +1718,26 @@ Prefab:
     - target: {fileID: 4937240894492126, guid: 8e614f35e2ad1e144a554dc03c90dae7, type: 2}
       propertyPath: m_LocalPosition.y
       value: 1.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 114320375214056306, guid: 8e614f35e2ad1e144a554dc03c90dae7,
+        type: 2}
+      propertyPath: inputSetting.CAMERA_AXIS
+      value: Mouse X
+      objectReference: {fileID: 0}
+    - target: {fileID: 114320375214056306, guid: 8e614f35e2ad1e144a554dc03c90dae7,
+        type: 2}
+      propertyPath: moveSetting.forwardVel
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 136464677747516208, guid: 8e614f35e2ad1e144a554dc03c90dae7,
+        type: 2}
+      propertyPath: m_Height
+      value: 1.8361906
+      objectReference: {fileID: 0}
+    - target: {fileID: 136464677747516208, guid: 8e614f35e2ad1e144a554dc03c90dae7,
+        type: 2}
+      propertyPath: m_Center.y
+      value: -0.042782366
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e614f35e2ad1e144a554dc03c90dae7, type: 2}

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BossFollowPlayer : MonoBehaviour {
 
     public GameObject player;
-    float moveSpeed = 1;
-    float MaxDist = 10;
-    float minDist = 0;
+    public float moveSpeed = 1;
+    public float MaxDist = 10;
+    public float minDist = 0;
 
 	// Use this for initialization
 	void Start () {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour {
 
     public LightPickup lPickUp;
-    public BelzierScript bScript;
+    //public BelzierScript bScript;
 
     //Movement variables
     public float speed = 0;
@@ -22,7 +22,7 @@ public class PlayerControls : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        phaseOneCurvePositions = bScript.pointsForPlayer;
+        //phaseOneCurvePositions = bScript.pointsForPlayer;
         for(int i = 0; i < phaseOneCurvePositions.Count; i++)
         {
             phaseOneCurveObjects.Add(Instantiate(accuratePathPref, phaseOneCurvePositions[i], Quaternion.identity));

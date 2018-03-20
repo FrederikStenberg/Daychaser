@@ -49,47 +49,51 @@ public class PlayerControls : MonoBehaviour {
         if(Input.GetKey(KeyCode.A) && speed > -maxSpeed)
         {
             speed = speed - accel * Time.deltaTime;
-            if (phaseOneCurveObjects[currentPointTargetNumber - 1] != null)
-            {
-                for(int i = 0; i < phaseOneCurveObjects.Count; i++)
-                {
-                    RaycastHit hit;
-                    Ray ray = new Ray(phaseOneCurveObjects[i].transform.position, Vector3.up);
-                    if(Physics.Raycast(ray, out hit))
-                    {
-                        if(hit.collider.tag == "Player")
-                        {
-                            if(currentPointTargetNumber != i)
-                            {
-                                currentPointTargetNumber = currentPointTargetNumber - 1;
-                            }                          
-                        }
-                    }
-                }
-                transform.Rotate(new Vector3(transform.rotation.x, phaseOneCurveObjects[currentPointTargetNumber - 1].transform.position.y, transform.rotation.z), Space.World);
-            }
+            characterDirection = Direction.Reverse;
+
+            //if (phaseOneCurveObjects[currentPointTargetNumber - 1] != null)
+            //{
+            //    for(int i = 0; i < phaseOneCurveObjects.Count; i++)
+            //    {
+            //        RaycastHit hit;
+            //        Ray ray = new Ray(phaseOneCurveObjects[i].transform.position, Vector3.up);
+            //        if(Physics.Raycast(ray, out hit))
+            //        {
+            //            if(hit.collider.tag == "Player")
+            //            {
+            //                if(currentPointTargetNumber != i)
+            //                {
+            //                    currentPointTargetNumber = currentPointTargetNumber - 1;
+            //                }                          
+            //            }
+            //        }
+            //    }
+            //    transform.Rotate(new Vector3(transform.rotation.x, phaseOneCurveObjects[currentPointTargetNumber - 1].transform.position.y, transform.rotation.z), Space.World);
+            //}
         }  else if (Input.GetKey(KeyCode.D) && speed < maxSpeed)
         {
             speed = speed + accel * Time.deltaTime;
-            if(phaseOneCurveObjects[currentPointTargetNumber + 1] != null)
-            {
-                for (int i = 0; i < phaseOneCurveObjects.Count; i++)
-                {
-                    RaycastHit hit;
-                    Ray ray = new Ray(phaseOneCurveObjects[i].transform.position, Vector3.up);
-                    if (Physics.Raycast(ray, out hit))
-                    {
-                        if (hit.collider.tag == "Player")
-                        {
-                            if (currentPointTargetNumber != i)
-                            {
-                                currentPointTargetNumber = currentPointTargetNumber + 1;
-                            }
-                        }
-                    }
-                }
-                transform.Rotate(new Vector3(transform.rotation.x, phaseOneCurveObjects[currentPointTargetNumber + 1].transform.position.y, transform.rotation.z), Space.World);
-            }           
+            characterDirection = Direction.Forward;
+
+            //if(phaseOneCurveObjects[currentPointTargetNumber + 1] != null)
+            //{
+            //    for (int i = 0; i < phaseOneCurveObjects.Count; i++)
+            //    {
+            //        RaycastHit hit;
+            //        Ray ray = new Ray(phaseOneCurveObjects[i].transform.position, Vector3.up);
+            //        if (Physics.Raycast(ray, out hit))
+            //        {
+            //            if (hit.collider.tag == "Player")
+            //            {
+            //                if (currentPointTargetNumber != i)
+            //                {
+            //                    currentPointTargetNumber = currentPointTargetNumber + 1;
+            //                }
+            //            }
+            //        }
+            //    }
+            //    transform.Rotate(new Vector3(transform.rotation.x, phaseOneCurveObjects[currentPointTargetNumber + 1].transform.position.y, transform.rotation.z), Space.World);
+            //}           
         } else
         {
             if(speed > decel * Time.deltaTime)
@@ -104,18 +108,63 @@ public class PlayerControls : MonoBehaviour {
             }
         }
 
-        if (transform.position.x == currentPointTarget.x)
-        {
-            currentPointTarget = phaseOneCurveObjects[currentPointTargetNumber + 1].transform.position;
-            currentPointTargetNumber += 1;
-        }
+        //if (transform.position.x == currentPointTarget.x)
+        //{
+        //    currentPointTarget = phaseOneCurveObjects[currentPointTargetNumber + 1].transform.position;
+        //    currentPointTargetNumber += 1;
+        //}
 
-        Debug.Log(currentPointTargetNumber);
+        //Debug.Log(currentPointTargetNumber);
         transform.position += transform.forward * speed * Time.deltaTime;
     }
 
     void dayMovement()
     {
 
+    }
+
+    void OnDrawGizmos()
+    {
+        iTween.DrawPath(controlPath, Color.blue);
+    }
+
+    public Transform[] controlPath;
+    private float pathPosition = 0;
+    private float lookAheadAmount = .01f;
+    public enum Direction { Forward, Reverse };
+    private Direction characterDirection;
+    void followNightPath()
+    {
+        float pathPercent = pathPosition % 1;
+        Vector3 coordinateOnPath = iTween.PointOnPath(controlPath, pathPercent);
+        Vector3 lookTarget;
+
+        //calculate look data if we aren't going to be looking beyond the extents of the path:
+        if (pathPercent - lookAheadAmount >= 0 && pathPercent + lookAheadAmount <= 1)
+        {
+
+            //leading or trailing point so we can have something to look at:
+            if (characterDirection == Direction.Forward)
+            {
+                lookTarget = iTween.PointOnPath(controlPath, pathPercent + lookAheadAmount);
+            }
+            else
+            {
+                lookTarget = iTween.PointOnPath(controlPath, pathPercent - lookAheadAmount);
+            }
+
+            //look:
+            transform.LookAt(lookTarget);
+
+            //nullify all rotations but y since we just want to look where we are going:
+            float yRot = transform.eulerAngles.y;
+            transform.eulerAngles = new Vector3(0, yRot, 0);
+        }
+
+        //if (Physics.Raycast(coordinateOnPath, -Vector3.up, out hit, rayLength))
+        //{
+        //    Debug.DrawRay(coordinateOnPath, -Vector3.up * hit.distance);
+        //    floorPosition = hit.point;
+        //}
     }
 }

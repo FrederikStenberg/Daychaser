@@ -7,6 +7,8 @@ public class LightPickup : MonoBehaviour {
     [HideInInspector]
     public string currentPhase = "night";
 
+    public GameObject directLight;
+
     GameObject[] LightSourcesInScene;
     int collectedLightSources = 0;
     int gotAllChecker = 0;
@@ -23,6 +25,7 @@ public class LightPickup : MonoBehaviour {
         {
             currentPhase = "day";
             Debug.Log("IT'S DAY");
+            directLight.GetComponent<Light>().enabled = true;
         }
     }
 

@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Kopi Level Prototype.unity
+- path: Assets/Level Prototype.unity
   isLoaded: 1
   isActive: 1

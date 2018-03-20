@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -310,7 +310,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pressed: 0
+  move: 0
   MovingPlatForm4: {fileID: 590622996}
+  Bridge: {fileID: 0}
 --- !u!1 &403711429
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,9 +1336,10 @@ GameObject:
   - component: {fileID: 824492893}
   - component: {fileID: 824492892}
   - component: {fileID: 824492891}
+  - component: {fileID: 824492894}
   m_Layer: 0
   m_Name: Button
-  m_TagString: Untagged
+  m_TagString: InteractableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1407,6 +1410,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 824492889}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &824492894
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 824492889}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 13.789574, y: 1.7166151, z: 8.252617}
+  m_Center: {x: -5.582225, y: 0.3583152, z: -0.4629153}
+--- !u!1 &826402087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 1514060150}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 826402088}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &826402088
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 1514060150}
+  m_GameObject: {fileID: 826402087}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832734350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,6 +1702,26 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 942445521}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &959570503 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1034522931437098, guid: 8e614f35e2ad1e144a554dc03c90dae7,
+    type: 2}
+  m_PrefabInternal: {fileID: 989171817}
+--- !u!114 &959570504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 959570503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e2e5b68c0ed9344ca4b4c2369e94d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pressed: 0
+  move: 0
+  MovingPlatForm4: {fileID: 590622996}
+  Bridge: {fileID: 2066310195}
 --- !u!1001 &989171817
 Prefab:
   m_ObjectHideFlags: 0
@@ -1716,6 +1779,22 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295138142736082, guid: 8e614f35e2ad1e144a554dc03c90dae7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 9.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295138142736082, guid: 8e614f35e2ad1e144a554dc03c90dae7, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295138142736082, guid: 8e614f35e2ad1e144a554dc03c90dae7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 3.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295138142736082, guid: 8e614f35e2ad1e144a554dc03c90dae7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 5.04
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e614f35e2ad1e144a554dc03c90dae7, type: 2}
@@ -2260,7 +2339,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pressed: 0
+  move: 0
   MovingPlatForm4: {fileID: 590622996}
+  Bridge: {fileID: 0}
 --- !u!54 &1277738752
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2401,13 +2482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8cdd8297326314eb39aa0036f39a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movingPlatform: {fileID: 2066310196}
-  position1: {fileID: 439379631}
-  position2: {fileID: 493502909}
-  newPosition: {x: 0, y: 0, z: 0}
-  currentState: 
-  smooth: 1
-  resetTime: 0
+  bridge: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!1 &1450334102
 GameObject:
   m_ObjectHideFlags: 0
@@ -2488,7 +2564,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1450334107
 MonoBehaviour:
@@ -2496,15 +2572,16 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1450334102}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10f967f3545a85d4eb3775d42294a119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1956538177}
+  target: {fileID: 0}
   lookSmooth: 0.09
   offsetFromTarget: {x: 0, y: 1, z: -3}
   xTilt: 10
+  inputDelay: 0.01
 --- !u!1 &1487428861
 GameObject:
   m_ObjectHideFlags: 0
@@ -3183,42 +3260,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1871406931}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1956538171 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1557573846434892, guid: 8e614f35e2ad1e144a554dc03c90dae7,
-    type: 2}
-  m_PrefabInternal: {fileID: 989171817}
---- !u!114 &1956538172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1956538171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5539715a135584791c1732a5c9834c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentPhase: night
-  directLight: {fileID: 2146903573}
---- !u!4 &1956538177 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4937240894492126, guid: 8e614f35e2ad1e144a554dc03c90dae7,
-    type: 2}
-  m_PrefabInternal: {fileID: 989171817}
---- !u!114 &1956538178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1956538171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e2e5b68c0ed9344ca4b4c2369e94d1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pressed: 0
-  MovingPlatForm4: {fileID: 590622996}
 --- !u!1 &1960484297
 GameObject:
   m_ObjectHideFlags: 0
@@ -3436,6 +3477,7 @@ GameObject:
   - component: {fileID: 2066310199}
   - component: {fileID: 2066310198}
   - component: {fileID: 2066310197}
+  - component: {fileID: 2066310200}
   m_Layer: 0
   m_Name: Bridge
   m_TagString: Untagged
@@ -3509,6 +3551,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2066310195}
   m_Mesh: {fileID: 1058508122}
+--- !u!95 &2066310200
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2066310195}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c00386b367b3c844f831ea6cb215090c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &2138127049
 GameObject:
   m_ObjectHideFlags: 0

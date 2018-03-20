@@ -9,7 +9,7 @@ public class PressurePlate : MonoBehaviour
     private bool check = false;
 
     public GameObject MovingPlatForm4;
-    public Animator BridgeFallAnimation;
+    public GameObject Bridge;
 
     void OnTriggerEnter(Collider col)
     {
@@ -25,29 +25,48 @@ public class PressurePlate : MonoBehaviour
     }
 
 
-    void OnTriggerStay(Collider col)
-    {
-        if (col.gameObject.tag == "InteractableObject")
-        {
-            if (!check)
-            {
-                if (Input.GetAxisRaw("Fire1") > 0.1f)
-                {
-                    check = true;
-                }
+    //void OnTriggerStay(Collider col)
+    //{
+    //    if (col.gameObject.tag == "InteractableObject")
+    //    {
+    //        if (!check)
+    //        {
+    //            if (Input.GetAxisRaw("Fire1") > 0.1f)
+    //            {
+    //                check = true;
+    //            }
 
-                if (check)
-                {
-                    move = true;
-                    Debug.Log("True");
-                }
-            }
-            if (Input.GetAxisRaw("Fire1") < 0.1f)
+    //            if (check)
+    //            {
+    //                move = true;
+    //                Debug.Log("True");
+    //            }
+    //        }
+    //        if (Input.GetAxisRaw("Fire1") < 0.1f)
+    //        {
+    //            check = false;
+    //            move = false;
+    //        }
+    //    }
+    //}
+
+    private void OnTriggerStay(Collider col)
+    {
+        if(col.gameObject.tag == "InteractableObject")
+        {
+            if(Input.GetKeyDown(KeyCode.Q))
             {
-                check = false;
-                move = false;
+                Bridge.GetComponent<Animator>().enabled = true;
+                StartCoroutine(SpeedAdjust());
             }
         }
+    }
+
+    IEnumerator SpeedAdjust()
+    {
+        Bridge.GetComponent<Animator>().speed = 20f;
+        yield return new WaitForSeconds(0.05f);
+        Bridge.GetComponent<Animator>().speed = 0f;
     }
 
 
@@ -63,16 +82,4 @@ public class PressurePlate : MonoBehaviour
             MovingPlatForm4.GetComponent<Elevator>().enabled = false;
         }
     }
-
 }
-    /*IEnumerator SpeedAdjust()
-    {
-        if (move == true)
-        {
-            BridgeFallAnimation["BridgeFall"].speed = 0.1f;
-            yield return new WaitForSeconds(0.25f);
-            BridgeFallAnimation["BridgeFall"].speed = 0f;
-        }
-
-    }
-}*/

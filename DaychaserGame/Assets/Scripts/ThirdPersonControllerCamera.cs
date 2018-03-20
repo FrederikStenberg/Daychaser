@@ -11,11 +11,27 @@ public class ThirdPersonControllerCamera : MonoBehaviour
 
     Vector3 destination = Vector3.zero;
     ThirdPersonController charController;
-    float rotateVel = 0;
+    float rotateVel = 100;
+
+    private string MOUSECAMERAX_AXIS = "Mouse X";
+    private string MOUSECAMERAY_AXIS = "Mouse Y";
+    private string CONTROLLERCAMERAX_AXIS = "Controller X";
+    private string CONTROLLERCAMERAY_AXIS = "Controller Y";
+    public float inputDelay = 0.01f;
+    Quaternion targetRotation;
+
+    float mouseturnXInput, mouseturnYInput,
+    controllerturnXInput, controllerturnYInput;
 
     private void Start()
     {
         SetCameraTarget(target);
+        //Movement
+        MoveToTarget();
+        //Rotation
+        LookAtTarget();
+        targetRotation = transform.rotation;
+        mouseturnXInput = mouseturnYInput = controllerturnXInput = controllerturnYInput = 0;
     }
 
     public void SetCameraTarget(Transform t)
@@ -37,10 +53,16 @@ public class ThirdPersonControllerCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        //Movement
-        MoveToTarget();
-        //Rotation
-        LookAtTarget();
+        GetInput();
+        LookAround();
+    }
+
+    void GetInput()
+    {
+        mouseturnXInput = Input.GetAxis(MOUSECAMERAX_AXIS);
+        mouseturnYInput = Input.GetAxis(MOUSECAMERAY_AXIS);
+        controllerturnXInput = Input.GetAxis(CONTROLLERCAMERAX_AXIS);
+        controllerturnYInput = Input.GetAxis(CONTROLLERCAMERAY_AXIS);
     }
 
     void MoveToTarget()
@@ -53,7 +75,29 @@ public class ThirdPersonControllerCamera : MonoBehaviour
     void LookAtTarget()
     {
         float eulerYAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, target.eulerAngles.y, ref rotateVel, lookSmooth);
-        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, eulerYAngle, 0);
+        transform.rotation = Quaternion.Euler(transform.eulerAngles.x, eulerYAngle, transform.eulerAngles.z);
+
+
+    }
+
+    void LookAround()
+    {
+        if (Mathf.Abs(mouseturnXInput) > inputDelay || Mathf.Abs(controllerturnXInput) > inputDelay)
+        {
+            targetRotation *= Quaternion.AngleAxis(rotateVel * (mouseturnXInput + controllerturnXInput) * Time.deltaTime, Vector3.up);
+            transform.rotation = targetRotation;
+        }
+        if (Mathf.Abs(mouseturnYInput) > inputDelay || Mathf.Abs(controllerturnYInput) > inputDelay)
+        {
+            targetRotation *= Quaternion.AngleAxis(rotateVel * (mouseturnYInput + controllerturnYInput) * Time.deltaTime, Vector3.right);
+            //if (targetRotation.eulerAngles.x > 50)
+            //{
+            //    Vector3 tempRot = new Vector3(50, targetRotation.eulerAngles.y, targetRotation.eulerAngles.z);
+            //    targetRotation = Quaternion.Euler(tempRot);
+            //}
+
+            transform.rotation = targetRotation;
+        }
     }
 }
 

@@ -9,7 +9,7 @@ public class Controller : MonoBehaviour {
 	private float pathPosition=0;
 	private RaycastHit hit;
 	private float speed = .2f;
-	private float rayLength = 5;
+	private float rayLength = 30;
 	private Direction characterDirection;
 	private Vector3 floorPosition;	
 	private float lookAheadAmount = .01f;

@@ -61,25 +61,14 @@ public class ThirdPersonController : MonoBehaviour
         forwardInput = turnInput = jumpInput = mouseturnInput = controllerturnInput = 0;
     }
 
-    public LightPickup lPickup;
-
     void GetInput()
     {
-        if(lPickup.currentPhase == "night")
-        {
-            forwardInput = Input.GetAxis(inputSetting.FORWARD_AXIS); //Input.GetAxis gets an interpolated value
-            jumpInput = Input.GetAxisRaw(inputSetting.JUMP_AXIS); //Input.GetAxisRaw gets a non-interpolated value (-1, 0 or 1)
-        } else
-        {
-            forwardInput = Input.GetAxis(inputSetting.FORWARD_AXIS); //Input.GetAxis gets an interpolated value
-            turnInput = Input.GetAxis(inputSetting.TURN_AXIS);
-            jumpInput = Input.GetAxisRaw(inputSetting.JUMP_AXIS); //Input.GetAxisRaw gets a non-interpolated value (-1, 0 or 1)
-        }
+        // Controls for both 2D and 3D
         forwardInput = Input.GetAxis(inputSetting.FORWARD_AXIS); //Input.GetAxis gets an interpolated value
+        jumpInput = Input.GetAxisRaw(inputSetting.JUMP_AXIS); //Input.GetAxisRaw gets a non-interpolated value (-1, 0 or 1)
         turnInput = Input.GetAxis(inputSetting.TURN_AXIS);
         mouseturnInput = Input.GetAxis(inputSetting.MOUSECAMERA_AXIS);
         controllerturnInput = Input.GetAxis(inputSetting.CONTROLLERCAMERA_AXIS);
-        jumpInput = Input.GetAxisRaw(inputSetting.JUMP_AXIS); //Input.GetAxisRaw gets a non-interpolated value (-1, 0 or 1)
     }
     
     void Update()

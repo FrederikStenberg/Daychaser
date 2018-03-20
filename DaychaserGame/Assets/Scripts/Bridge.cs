@@ -3,37 +3,38 @@ using UnityEngine;
 
 public class Bridge : MonoBehaviour {
 
-    public Transform movingPlatform;
-    public Transform position1;
-    public Transform position2;
-    public Vector3 newPosition;
-    public string currentState;
-    public float smooth;
-    public float resetTime;
+    public GameObject bridge;
+    public Animation anim;
+    bool move = false;
+
 
 	// Use this for initialization
 	void Start () {
-        ChangeTarget();
-        movingPlatform.position = Vector3.Lerp(movingPlatform.position, newPosition, smooth * Time.deltaTime);
-	}
+        
+    }
 	
 	// Update is called once per frame
-	void FixedUpdate () {
-	}
-    void ChangeTarget()
-    {
-        if (currentState == "To1" || currentState == "")
-        {
-            currentState = "To2";
-            newPosition = position2.position;
-        }
-        else if (currentState == "To2")
-        {
-            currentState = "To1";
-            newPosition = position1.position;
-        }
-      
-        Invoke("ChangeTarget", resetTime);
-    }
+	void Update () {
 
+        if (Input.GetAxisRaw("Fire1") > 0.1f)
+        {
+            move = true;
+        }
+        else if (Input.GetAxisRaw("Fire1") < 0.1f)
+        {
+            move = false;
+        }
+	}
+
+  
+    IEnumerator SpeedAdjust()
+    {
+        if (move == true)
+        {
+            anim["BridgeFall"].speed = 0.1f;
+            yield return new WaitForSeconds(0.25f);
+            anim["BridgeFall"].speed = 0f;
+        }
+        
+    }
 }

@@ -10,8 +10,11 @@ public class LightPickup : MonoBehaviour {
     public GameObject directLight;
 
     public GameObject[] LightSourcesInScene;
+    public Material daySkybox;
     int collectedLightSources = 0;
     int gotAllChecker = 0;
+
+    bool changePhaseOnce = true;
 
     private void Start()
     {
@@ -21,11 +24,12 @@ public class LightPickup : MonoBehaviour {
 
     private void Update()
     {
-        if (collectedLightSources == gotAllChecker)
+        if (collectedLightSources == gotAllChecker && changePhaseOnce == true)
         {
             currentPhase = "day";
-            Debug.Log("IT'S DAY");
             directLight.GetComponent<Light>().enabled = true;
+            RenderSettings.skybox = daySkybox;
+            changePhaseOnce = false;
         }
     }
 

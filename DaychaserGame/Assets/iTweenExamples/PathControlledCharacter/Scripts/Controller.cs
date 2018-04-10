@@ -91,7 +91,8 @@ public class Controller : MonoBehaviour {
 		if (Input.GetKeyDown("space") && jumpState==0) {
 			ySpeed-=jumpForce;
 			jumpState=1;
-		}
+            character.GetChild(0).GetComponent<Animator>().Play("Jump", -1, 0.0f);
+        }
 	}
 	
 	

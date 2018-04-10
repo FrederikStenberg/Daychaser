@@ -54,7 +54,7 @@ public class ThirdPersonControllerCamera : MonoBehaviour
     private void LateUpdate()
     {
         GetInput();
-        LookAround();
+        LookAtTarget();
     }
 
     void GetInput()

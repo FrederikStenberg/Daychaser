@@ -3,6 +3,9 @@ using System.Collections;
 
 public class ThirdPersonController : MonoBehaviour
 {
+    public Animator animator;
+
+
     [System.Serializable] //This allows us to see the classes from the inspector
     public class MoveSettings
     {
@@ -11,6 +14,7 @@ public class ThirdPersonController : MonoBehaviour
         public float jumpVel = 10;
         public float distToGrounded = 1f;
         public LayerMask ground;
+        
     }
 
     [System.Serializable]
@@ -84,31 +88,41 @@ public class ThirdPersonController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Run();
+        Run(animator);
         Jump();
 
         rBody.velocity = transform.TransformDirection(velocity);
     }
 
-    void Run()
+   public void Run(Animator animator)
     {
         if (Mathf.Abs(forwardInput) > inputSetting.inputDelay)
         {
             // Move
+            animator.SetTrigger("StartWalk");
             velocity.z = moveSetting.forwardVel * forwardInput;
         }
         else
-            // Zero velocity
+        {
+            animator.SetTrigger("StopWalk");
             velocity.z = 0;
+        }
+            // Zero velocity
+          
 
 
         if (Mathf.Abs(turnInput) > inputSetting.inputDelay)
         {
+            animator.SetTrigger("StartWalk");
             velocity.x = moveSetting.forwardVel * turnInput;
         }
         else
-            // Zero velocity
+        {
+            animator.SetTrigger("StopWalk");
             velocity.x = 0;
+        }
+            // Zero velocity
+            
     }
 
     void Turn()

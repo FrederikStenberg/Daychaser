@@ -29,13 +29,19 @@ public class LightPickup : MonoBehaviour {
         }
     }
 
+    GameObject currentObj;
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "collectableLightSource")
         {
-            Debug.Log("I'm collecting");
-            Destroy(collision.gameObject);
-            collectedLightSources += 1;
+            if(collision.gameObject != currentObj)
+            {
+                Destroy(collision.gameObject);
+                collectedLightSources += 1;
+                Debug.Log("I'm collecting");
+            }
+            currentObj = collision.gameObject;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections;
 public class Controller : MonoBehaviour {
 	public Transform[] controlPath;
 	public Transform character;
+    public Transform terrain;
 	public enum Direction {Forward,Reverse};
 	
 	private float pathPosition=0;
@@ -28,30 +29,48 @@ public class Controller : MonoBehaviour {
 		foreach (Transform child in character) {
 			child.gameObject.layer=2;
 		}
-	}
 
+        //This was the most effecient way don't ask questions
+        foreach(Transform child in terrain)
+        {
+            foreach(Transform child2 in child)
+            {
+                child2.gameObject.layer = 2;
 
-	void OnGUI ()
-	{
-		GUILayout.Label ("Left and right keys to move.  Space to jump.");
+                foreach (Transform child3 in child2)
+                {
+                    child3.gameObject.layer = 2;
+
+                    foreach(Transform child4 in child3)
+                    {
+                        child4.gameObject.layer = 2;
+                    }
+                }
+            } 
+        }
 	}
-	
 	
 	void Update(){
 		DetectKeys();
-		FindFloorAndRotation();
-		MoveCharacter();
-		MoveCamera();
+        FindFloorAndRotation();
 	}
-	
-	
-	void DetectKeys(){
+
+    private void FixedUpdate()
+    {
+        MoveCharacter();
+    }
+
+
+    void DetectKeys(){
 		//forward path movement:
 		if(Input.GetKeyDown("right")){
 			characterDirection=Direction.Forward;	
 		}
 		if(Input.GetKey("right")) {
-			pathPosition += Time.deltaTime * speed;
+            if (pathPosition < 0.99)
+            {
+                pathPosition += Time.deltaTime * speed;
+            }		
 		}
 		
 		//reverse path movement:
@@ -62,8 +81,8 @@ public class Controller : MonoBehaviour {
 			//handle path loop around since we can't interpolate a path percentage that's negative(well duh):
 			float temp = pathPosition - (Time.deltaTime * speed);
 			if(temp<0){
-				pathPosition=1;	
-			}else{
+				pathPosition=0;	
+			}else {
 				pathPosition -= (Time.deltaTime * speed);
 			}
 		}	
@@ -77,6 +96,7 @@ public class Controller : MonoBehaviour {
 	
 	
 	void FindFloorAndRotation(){
+
 		float pathPercent = pathPosition%1;
 		Vector3 coordinateOnPath = iTween.PointOnPath(controlPath,pathPercent);
 		Vector3 lookTarget;
@@ -100,8 +120,8 @@ public class Controller : MonoBehaviour {
 		}
 
 		if (Physics.Raycast(coordinateOnPath,-Vector3.up,out hit, rayLength)){
-			Debug.DrawRay(coordinateOnPath, -Vector3.up * hit.distance);
-			floorPosition=hit.point;
+            Debug.DrawRay(coordinateOnPath, -Vector3.up * hit.distance);
+            floorPosition = hit.point;
 		}
 	}
 	
@@ -119,10 +139,5 @@ public class Controller : MonoBehaviour {
 			jumpState=0;
 			character.position=new Vector3(floorPosition.x,floorPosition.y,floorPosition.z);
 		}		
-	}
-	
-	
-	void MoveCamera(){
-		//iTween.MoveUpdate(Camera.main.gameObject,new Vector3(character.position.x,2.7f,character.position.z-5f),.9f);	
 	}
 }

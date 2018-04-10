@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StopTween : MonoBehaviour {
 
+    public GameObject controller;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -18,7 +20,7 @@ public class StopTween : MonoBehaviour {
     {
         if(col.gameObject.tag == "ObjectCollider")
         {
-            iTween.Stop(gameObject);
+            iTween.Stop(controller);
             Debug.Log("Stop iTween");
         }
     }

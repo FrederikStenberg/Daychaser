@@ -5363,7 +5363,7 @@ public class iTween : MonoBehaviour
 		//create and store path points:
 		Vector3[] suppliedPath = new Vector3[path.Length];
 		for (int i = 0; i < path.Length; i++) {
-			suppliedPath[i]=path[i].position;
+            suppliedPath[i] = path[i].position;	
 		}	
 		return(Interp(PathControlPointGenerator(suppliedPath),percent));
 	}
@@ -6052,6 +6052,7 @@ public class iTween : MonoBehaviour
 	/// </summary>
 	public static void Stop(){
 		for (int i = 0; i < tweens.Count; i++) {
+
 			Hashtable currentTween = tweens[i];
 			GameObject target = (GameObject)currentTween["target"];
 			Stop(target);

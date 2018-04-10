@@ -16,6 +16,8 @@ public class UIMonitor : MonoBehaviour
     public GameObject heart3;
     public Text lightText;
     public LightPickup lightScript;
+    public BossTemp bossScript;
+    public Text bossText;
 
 
 
@@ -45,5 +47,6 @@ public class UIMonitor : MonoBehaviour
         }
 
         lightText.text = lightScript.LightSourcesInScene.Length.ToString();
+        bossText.text = bossScript.currentHealth.ToString();
     }
 }

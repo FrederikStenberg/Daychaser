@@ -15,7 +15,7 @@ public class Controller : MonoBehaviour {
 	private float lookAheadAmount = .01f;
 	private float ySpeed=0;
 	private float gravity=.5f;
-	private float jumpForce=.12f;
+	public float jumpForce=.12f;
 	private uint jumpState=0; //0=grounded 1=jumping
 	
 	void OnDrawGizmos(){
@@ -123,6 +123,6 @@ public class Controller : MonoBehaviour {
 	
 	
 	void MoveCamera(){
-		iTween.MoveUpdate(Camera.main.gameObject,new Vector3(character.position.x,2.7f,character.position.z-5f),.9f);	
+		//iTween.MoveUpdate(Camera.main.gameObject,new Vector3(character.position.x,2.7f,character.position.z-5f),.9f);	
 	}
 }

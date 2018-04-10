@@ -6,6 +6,7 @@ TagManager:
   tags:
   - collectableLightSource
   - InteractableObject
+  - ObjectCollider
   layers:
   - Default
   - TransparentFX

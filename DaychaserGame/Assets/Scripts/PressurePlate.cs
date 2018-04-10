@@ -64,7 +64,7 @@ public class PressurePlate : MonoBehaviour
 
     IEnumerator SpeedAdjust()
     {
-        Bridge.GetComponent<Animator>().speed = 20f;
+        Bridge.GetComponent<Animator>().speed = 10f;
         yield return new WaitForSeconds(0.05f);
         Bridge.GetComponent<Animator>().speed = 0f;
     }

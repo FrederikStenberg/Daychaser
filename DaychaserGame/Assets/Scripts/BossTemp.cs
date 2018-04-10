@@ -43,6 +43,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
     void ChasePlayer(Player player)
     {
         navAgent.SetDestination(player.transform.position);
+        this.GetComponentInParent<Animator>().Play("Walk", -1, 0.0f);
         this.player = player;
         if (navAgent.remainingDistance <= navAgent.stoppingDistance)
         {
@@ -64,6 +65,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     public void PerformAttack()
     {
+        this.GetComponentInParent<Animator>().Play("Attack", -1, 0.0f);
         player.TakeDamage(1);
     }
 }

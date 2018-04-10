@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
 
     public void TakeDamage(int amount)
     {
-        Debug.Log("Player takes " + amount + " damage!");
+        Debug.Log("Player takes " + amount + " damage!");   
         currentHealth -= amount;
         if (currentHealth <= 0)
             die();

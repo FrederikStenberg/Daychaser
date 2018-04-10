@@ -13,7 +13,7 @@ public class Sword : MonoBehaviour {
 	}
     public static void PerformAttack(Animator animator)
     {
-        animator.SetTrigger("Base_Attack");
+        animator.SetTrigger("Base_Attack2");
     }
 
     void OnTriggerEnter(Collider col)

@@ -9,7 +9,7 @@ public class LightPickup : MonoBehaviour {
 
     public GameObject directLight;
 
-    GameObject[] LightSourcesInScene;
+    public GameObject[] LightSourcesInScene;
     int collectedLightSources = 0;
     int gotAllChecker = 0;
 

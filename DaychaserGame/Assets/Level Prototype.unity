@@ -347,6 +347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPhase: night
   directLight: {fileID: 2146903573}
+  LightSourcesInScene: []
 --- !u!1 &324694276
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,6 +765,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPhase: night
   directLight: {fileID: 0}
+  LightSourcesInScene: []
 --- !u!1 &476586104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2508,9 +2510,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8592c6a446e440f4589c7a0067a443c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1531298418}
+  target: {fileID: 289752553}
   damping: 4
-  cameraDefaultHeight: 3.5
+  cameraDefaultHeight: 2
 --- !u!4 &1477527831 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4500478964286102, guid: fa0f442cf4cb9364d80a7229ef317c39,

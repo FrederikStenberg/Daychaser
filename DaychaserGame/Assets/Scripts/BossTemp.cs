@@ -8,6 +8,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
     public LayerMask aggroLayerMask;
     public float currentHealth;
     public float maxHealth;
+    public Animator animator;
 
     private Player player;
     private NavMeshAgent navAgent;
@@ -22,7 +23,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
     //Fixed to optimize performance. No need to check more often than 50 times a second lol.
 	void FixedUpdate () {
         //checks for anything within a sphere around the boss with 10 radius.
-        withinAggroColliders = Physics.OverlapSphere(transform.position, 10, aggroLayerMask);
+        withinAggroColliders = Physics.OverlapSphere(transform.position, 20, aggroLayerMask);
         if (withinAggroColliders.Length > 0)
         {
             //If player is within the aggro radius, this does something
@@ -42,8 +43,8 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     void ChasePlayer(Player player)
     {
+        animator.SetTrigger("BossWalk");
         navAgent.SetDestination(player.transform.position);
-        this.GetComponentInParent<Animator>().Play("Walk", -1, 0.0f);
         this.player = player;
         if (navAgent.remainingDistance <= navAgent.stoppingDistance)
         {
@@ -65,7 +66,8 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     public void PerformAttack()
     {
-        this.GetComponentInParent<Animator>().Play("Attack", -1, 0.0f);
-        player.TakeDamage(1);
+        animator.SetTrigger("BossAtk");
+        player.TakeDamage(0);
+        Debug.Log("Player took 1 Damage!");
     }
 }

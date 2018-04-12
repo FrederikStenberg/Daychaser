@@ -8,12 +8,13 @@ public class BelzierFollow : MonoBehaviour {
     public Transform character;   
     public float speed;
 
+    Rigidbody rbody;
     Vector3[] pointsVector;
-    float percentage;
+    public float percentage;
 
     // Use this for initialization
     void Start () {
-
+        rbody = character.gameObject.GetComponentInChildren<Rigidbody>();
         pointsVector = new Vector3[points.Length];
 
         for(int i = 0; i < points.Length; i++)
@@ -25,13 +26,17 @@ public class BelzierFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        character.position = BezierCurve.GetPoint(percentage, pointsVector);
+        Debug.Log(rbody.velocity);
+        character.position = BezierCurve.GetPoint(percentage, pointsVector);   
 
         if (Input.GetKey(KeyCode.D))
         {
             if(percentage < 1)
             {
-                percentage += Time.deltaTime * speed;
+                if(rbody.velocity.x != 0 && rbody.velocity.z != 0)
+                {
+                    percentage += Time.deltaTime * speed;
+                }             
             }           
         }      
         
@@ -39,7 +44,10 @@ public class BelzierFollow : MonoBehaviour {
         {
             if(percentage > 0)
             {
-                percentage -= Time.deltaTime * speed;
+                if (rbody.velocity.x != 0 && rbody.velocity.z != 0)
+                {
+                    percentage -= Time.deltaTime * speed;
+                }
             }
         }
 	}

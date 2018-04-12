@@ -41,13 +41,12 @@ public class Phase2Controller : MonoBehaviour {
         if (Input.GetKeyDown (KeyCode.Space))
         {
             Jump();
-            //animator.SetTrigger(jumpHash);
+            animator.Play(jumpHash);
         }
 
         /// Animations
         float animationSpeedPercent = currentSpeed / speed;
-        //animator.SetBool("StartWalk", true);
-        animator.SetFloat("StartWalk", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
+        animator.SetFloat("Walk", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
     }
 
     void Move(Vector2 inputDir)
@@ -79,11 +78,6 @@ public class Phase2Controller : MonoBehaviour {
         {
             float jumpVelocity = Mathf.Sqrt(-2 * gravity * jumpHeight);
             velocityY = jumpVelocity;
-            //animator.SetBool("Jump", true);
-        }
-        else
-        {
-            //animator.SetBool("Jump", false);
         }
     }
 

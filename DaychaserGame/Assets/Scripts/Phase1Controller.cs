@@ -32,7 +32,7 @@ public class Phase1Controller : MonoBehaviour {
 
     private void Update()
     {
-        Movement(KeyInput());
+        KeyInput();
         FaceCurrentNode(targetNode);
     }
 
@@ -42,10 +42,12 @@ public class Phase1Controller : MonoBehaviour {
         {
             playerDirection = Direction.Forward;
             character.transform.position = Vector3.MoveTowards(character.transform.position, targetNode.position, speed * Time.deltaTime);
-            if (character.position == targetNode.position)
+            if (character.position.x == targetNode.position.x && character.position.z == targetNode.position.z)
             {
                 Debug.Log("+1 Right Node");
                 targetNode = path[targetNodeInt + 1];
+                targetNodeInt++;
+                Debug.Log(targetNodeInt);
             }
         }
 
@@ -53,6 +55,13 @@ public class Phase1Controller : MonoBehaviour {
         {
             playerDirection = Direction.Reverse;
             character.transform.position = Vector3.MoveTowards(character.transform.position, path[targetNodeInt - 1].position, speed * Time.deltaTime);
+            if(character.position.x == path[targetNodeInt - 1].position.x && character.position.z == path[targetNodeInt - 1].position.z)
+            {
+                targetNode = path[targetNodeInt - 2];
+                targetNodeInt = targetNodeInt - 2;
+                Debug.Log(targetNodeInt);
+            }
+
         }
 
         return playerDirection;

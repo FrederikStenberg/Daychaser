@@ -10,6 +10,7 @@ public class PressurePlate : MonoBehaviour
 
     public GameObject MovingPlatForm4;
     public GameObject Bridge;
+    public Animator anim;
 
     void OnTriggerEnter(Collider col)
     {
@@ -22,8 +23,14 @@ public class PressurePlate : MonoBehaviour
             MovingPlatForm4.GetComponent<Elevator>().enabled = true;
         }
 
+        if (col.tag == "Player")
+        {
+            anim.SetTrigger("CubeTrigger");
+        }
+
     }
 
+   
 
     //void OnTriggerStay(Collider col)
     //{

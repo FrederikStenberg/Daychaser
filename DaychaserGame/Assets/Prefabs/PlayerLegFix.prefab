@@ -564,7 +564,7 @@ GameObject:
   - component: {fileID: 114620951811231962}
   - component: {fileID: 114318396811903606}
   m_Layer: 9
-  m_Name: Player 1
+  m_Name: PlayerLegFix
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1304,6 +1304,7 @@ MonoBehaviour:
   move: 0
   MovingPlatForm4: {fileID: 0}
   Bridge: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!114 &114620951811231962
 MonoBehaviour:
   m_ObjectHideFlags: 1

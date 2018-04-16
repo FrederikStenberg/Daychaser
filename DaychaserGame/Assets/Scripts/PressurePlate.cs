@@ -86,7 +86,7 @@ public class PressurePlate : MonoBehaviour
         }
         if (pressed == false)
         {
-            MovingPlatForm4.GetComponent<Elevator>().enabled = false;
+            //MovingPlatForm4.GetComponent<Elevator>().enabled = false;
         }
     }
 }

@@ -8,6 +8,7 @@ public class LightPickup : MonoBehaviour {
     public string currentPhase = "night";
 
     public GameObject directLight;
+    public Material daySkybox;
 
     public GameObject[] LightSourcesInScene;
     int collectedLightSources = 0;
@@ -25,23 +26,24 @@ public class LightPickup : MonoBehaviour {
         {
             currentPhase = "day";
             Debug.Log("IT'S DAY");
+            RenderSettings.skybox = daySkybox;
             directLight.GetComponent<Light>().enabled = true;
         }
     }
 
     GameObject currentObj;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if(collision.gameObject.tag == "collectableLightSource")
+        if (hit.gameObject.tag == "collectableLightSource")
         {
-            if(collision.gameObject != currentObj)
+            if (hit.gameObject != currentObj)
             {
-                Destroy(collision.gameObject);
+                Destroy(hit.gameObject);
                 collectedLightSources += 1;
                 Debug.Log("I'm collecting");
             }
-            currentObj = collision.gameObject;
+            currentObj = hit.gameObject;
         }
     }
 }

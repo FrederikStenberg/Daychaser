@@ -12,11 +12,13 @@ public class Phase2Controller : MonoBehaviour {
 
     public float turnSmoothTime = 0.2f;
     float turnSmoothVelocity;
+    bool _getPushedOnce = false;
 
     public float speedSmoothTime = 0.1f;
     float speedSmoothVelocity;
     float currentSpeed;
     float velocityY;
+    Vector3 bounce = Vector3.zero;
 
     Transform cameraT;
     CharacterController controller;
@@ -25,32 +27,18 @@ public class Phase2Controller : MonoBehaviour {
     int walkHash = Animator.StringToHash("StartWalk");
     int jumpHash = Animator.StringToHash("Jump");
 
-    void Start () {
+    void Start() {
         animator = GetComponent<Animator>();
         cameraT = Camera.main.transform;
         controller = GetComponent<CharacterController>();
-	}
+    }
 
-	void Update () {
+    void Update() {
         /// Input
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 inputDir = input.normalized;
 
         Move(inputDir);
-
-        if (Input.GetKeyDown (KeyCode.Space))
-        {
-            Jump();
-            animator.Play(jumpHash);
-        }
-
-        /// Animations
-        float animationSpeedPercent = currentSpeed / speed;
-        animator.SetFloat("Walk", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
-    }
-
-    void Move(Vector2 inputDir)
-    {
         if (inputDir != Vector2.zero)
         {
             float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
@@ -70,6 +58,49 @@ public class Phase2Controller : MonoBehaviour {
         {
             velocityY = 0;
         }
+
+        if (Input.GetKeyDown(KeyCode.Space) || _getPushedOnce)
+        {
+            if (_getPushedOnce)
+            {
+                jumpHeight *= 5;
+            }
+            Jump();
+            animator.Play(jumpHash);
+            if (_getPushedOnce)
+            {
+                jumpHeight /= 5;
+                _getPushedOnce = false;
+            }
+        }
+
+
+        /// Animations
+        float animationSpeedPercent = currentSpeed / speed;
+        animator.SetFloat("Walk", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
+    }
+
+    void Move(Vector2 inputDir)
+    {
+        //if (inputDir != Vector2.zero)
+        //{
+        //    float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
+        //    transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetModifiedSmoothTime(turnSmoothTime));
+        //}
+
+        //float targetSpeed = speed * inputDir.magnitude;
+        //currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, GetModifiedSmoothTime(speedSmoothTime));
+
+        //velocityY += Time.deltaTime * gravity;
+        //Vector3 velocity = transform.forward * currentSpeed + Vector3.up * velocityY;
+
+        //controller.Move(velocity * Time.deltaTime);
+        //currentSpeed = new Vector2(controller.velocity.x, controller.velocity.z).magnitude;
+
+        //if (controller.isGrounded)
+        //{
+        //    velocityY = 0;
+        //}
     }
 
     void Jump()
@@ -81,7 +112,7 @@ public class Phase2Controller : MonoBehaviour {
         }
     }
 
-    float GetModifiedSmoothTime (float smoothTime)
+    float GetModifiedSmoothTime(float smoothTime)
     {
         if (controller.isGrounded)
         {
@@ -93,5 +124,18 @@ public class Phase2Controller : MonoBehaviour {
             return float.MaxValue;
         }
         return smoothTime / airControlPercent;
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        Rigidbody body = hit.collider.attachedRigidbody;
+
+        if (hit.gameObject.tag == "PushObject")
+        {
+            if ((body == null || body.isKinematic) && hit.controller.velocity.y < -1f)
+            {
+                _getPushedOnce = true;
+            }
+        }
     }
 }

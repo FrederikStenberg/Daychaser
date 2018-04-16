@@ -8,6 +8,7 @@ TagManager:
   - InteractableObject
   - ObjectCollider
   - IgnoreTween
+  - PushObject
   layers:
   - Default
   - TransparentFX

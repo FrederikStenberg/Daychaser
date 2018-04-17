@@ -5505,6 +5505,7 @@ MonoBehaviour:
   ghost: {fileID: 1972366823}
   distanceForGhostEffect: 100000
   ghostPushForce: 5
+  playerPushForce: 0
 --- !u!114 &1485819195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6239,6 +6240,10 @@ Prefab:
     - target: {fileID: 4433048101934948, guid: 0d780a36b27bd45459fa52607070b7fc, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1394361658032026, guid: 0d780a36b27bd45459fa52607070b7fc, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0d780a36b27bd45459fa52607070b7fc, type: 2}

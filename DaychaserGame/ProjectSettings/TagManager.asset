@@ -9,6 +9,8 @@ TagManager:
   - ObjectCollider
   - IgnoreTween
   - PushObject
+  - Enemy
+  - Ghost
   layers:
   - Default
   - TransparentFX

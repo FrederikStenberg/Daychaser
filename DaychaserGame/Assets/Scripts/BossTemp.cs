@@ -21,14 +21,15 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     private float fireCountdown = 10f;
     private Transform target;
+    public float dstToTarget = 10;
     private Player player;
     private NavMeshAgent navAgent;
     private Collider[] withinAggroColliders;
 
     Vector3 playerPos;
+    private bool _attackCD = false;
 
-
-	void Start () {
+    void Start () {
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         //fireball = Resources.Load<Fireball>("Prefabs/Projectiles/Fireball");
@@ -100,19 +101,14 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     public void Shoot()
     {
-        
-
         GameObject fireballGO = (GameObject)Instantiate(fireballPrefab, ProjectileSpawn.position, ProjectileSpawn.rotation);
         Fireball fireball = fireballGO.GetComponent<Fireball>();
-
-        playerPos = GameObject.Find("Target look").transform.position;
         ProjectileSpawn.LookAt(playerPos);
         fireball.Direction = ProjectileSpawn.forward;
         animator.SetTrigger("ShootFire");
         if (fireball != null)
             fireball.Seek(target);
         //Fireball fireballInstance = (Fireball)Instantiate(fireball, ProjectileSpawn.position, ProjectileSpawn.rotation);
-
     }
 
     public void PerformAttack()
@@ -133,7 +129,8 @@ public class BossTemp : MonoBehaviour, IEnemy {
         if (target == null)
             return;
 
-        Vector3 dir = target.position - transform.position;
+        playerPos = GameObject.Find("Target look").transform.position;
+        Vector3 dir = playerPos - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = lookRotation.eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
@@ -143,8 +140,28 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
          if (fireCountdown <= 0f)
          {
-             Shoot();
-             fireCountdown = fireRate;
+            Debug.Log("The distance between Boss and target is: " + Vector3.Distance(playerPos, transform.position));
+            if (_attackCD)
+            {
+                Debug.Log("Boss tried to Melee the target!");
+                PerformAttack();
+            }
+            else
+            {
+                Shoot();
+                Debug.Log("Boss tried to Shoot the target!");
+            }
+
+            if (Vector3.Distance(playerPos, transform.position) <= dstToTarget)
+            {
+                Debug.Log("Boss set next attack to be Melee!");
+                _attackCD = true;
+            }
+            else
+            {
+                Debug.Log("Boss set next attack to be Shoot!");
+            }
+            fireCountdown = fireRate;
          }
         Debug.Log(fireCountdown);
         fireCountdown -= Time.deltaTime;

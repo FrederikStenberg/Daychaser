@@ -82,7 +82,8 @@ public class LightPickup : MonoBehaviour {
 
     public IEnumerator dontSpamDie()
     {
-        GetComponent<Player>().TakeDamage(1);      
+        GetComponent<Player>().TakeDamage(1);
+        GetComponent<CharacterController>().Move(new Vector3(1,1,0) * 50 * Time.deltaTime);
         yield return new WaitForSeconds(2);
         if(currentPhase == "night")
         {

@@ -10,7 +10,7 @@ public class DayCycle : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        hearts = GameObject.FindGameObjectsWithTag("Heart");
+        //hearts = GameObject.FindGameObjectsWithTag("Heart");
         Debug.Log(hearts);
         boss.SetActive(true);
         foreach (GameObject heart in hearts) {

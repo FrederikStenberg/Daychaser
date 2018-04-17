@@ -12,6 +12,7 @@ public class LightPickup : MonoBehaviour {
     public GameObject[] LightSourcesInScene;
     public GameObject ghost;
     public GameObject ghostSpawn;
+    public GameObject dayCycle;
     public float distanceForGhostEffect;
     public float ghostPushForce;
     public float playerPushForce;
@@ -34,7 +35,8 @@ public class LightPickup : MonoBehaviour {
         if (collectedLightSources == gotAllChecker || (Input.GetKey(KeyCode.P)))
         {
             currentPhase = "day";
-            lerpMaterial = true;           
+            lerpMaterial = true;
+            dayCycle.SetActive(true);
         }
 
         if(lerpMaterial == true)

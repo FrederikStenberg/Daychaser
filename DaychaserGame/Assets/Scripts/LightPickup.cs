@@ -6,15 +6,18 @@ public class LightPickup : MonoBehaviour {
 
     [HideInInspector]
     public string currentPhase = "night";
+    public int collectedLightSources = 0;
 
     public GameObject directLight;
     public GameObject[] LightSourcesInScene;
+    public GameObject ghost;
+    public float distanceForGhostEffect;
+    public float ghostPushForce;
 
     float skyboxLerpDuration;
     float skyboxBlend;
     float fogDensity = 0.04f;
-    float fogDensityDuration = 0;
-    int collectedLightSources = 0;
+    float fogDensityDuration = 0;   
     int gotAllChecker = 0;
     bool lerpMaterial = false;
 
@@ -29,7 +32,6 @@ public class LightPickup : MonoBehaviour {
         if (collectedLightSources == gotAllChecker || (Input.GetKey(KeyCode.P)))
         {
             currentPhase = "day";
-            Debug.Log("IT'S DAY");
             lerpMaterial = true;           
         }
 
@@ -52,6 +54,8 @@ public class LightPickup : MonoBehaviour {
 
     GameObject currentObj;
 
+    Vector3 tempVel;
+
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.tag == "collectableLightSource")
@@ -60,9 +64,24 @@ public class LightPickup : MonoBehaviour {
             {
                 Destroy(hit.gameObject);
                 collectedLightSources += 1;
-                Debug.Log("I'm collecting");
+                if(Vector3.Distance(ghost.transform.position, transform.position) < distanceForGhostEffect)
+                {
+                    ghost.GetComponent<GhostSteeringScript>().enabled = false;
+                    Vector3 dir = transform.position - ghost.transform.position;
+                    dir = -dir.normalized;
+                    tempVel = ghost.GetComponent<Rigidbody>().velocity;
+                    ghost.GetComponent<Rigidbody>().velocity = -transform.forward * ghostPushForce;
+                    StartCoroutine(ghostCooldown()); 
+                }
             }
             currentObj = hit.gameObject;
         }
+    }
+
+    IEnumerator ghostCooldown()
+    {
+        yield return new WaitForSeconds(1);
+        ghost.GetComponent<Rigidbody>().velocity = tempVel;
+        ghost.GetComponent<GhostSteeringScript>().enabled = true;
     }
 }

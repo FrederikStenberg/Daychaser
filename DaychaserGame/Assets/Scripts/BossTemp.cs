@@ -7,7 +7,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     public LayerMask aggroLayerMask;
     public float currentHealth;
-    public float maxHealth;
+    public float maxHealth = 10;
     public Animator animator;
     public Vector3 Direction;
     Fireball fireballClass;
@@ -169,9 +169,4 @@ public class BossTemp : MonoBehaviour, IEnemy {
         //Debug.Log(fireCountdown);
         fireCountdown -= Time.deltaTime;
     }
-
-    //void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.DrawWireSphere(transform.position, dstToTarget);
-    //}
 }

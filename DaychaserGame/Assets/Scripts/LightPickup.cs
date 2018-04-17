@@ -11,6 +11,9 @@ public class LightPickup : MonoBehaviour {
     public GameObject directLight;
     public GameObject[] LightSourcesInScene;
     public GameObject ghost;
+    public GameObject ghostSpawn;
+    public GameObject dayCycle;
+    public GameObject toggleBossHealth;
     public float distanceForGhostEffect;
     public float ghostPushForce;
     public float playerPushForce;
@@ -33,7 +36,9 @@ public class LightPickup : MonoBehaviour {
         if (collectedLightSources == gotAllChecker || (Input.GetKey(KeyCode.P)))
         {
             currentPhase = "day";
-            lerpMaterial = true;           
+            lerpMaterial = true;
+            dayCycle.SetActive(true);
+            toggleBossHealth.SetActive(true);
         }
 
         if(lerpMaterial == true)
@@ -75,24 +80,16 @@ public class LightPickup : MonoBehaviour {
             }
             currentObj = hit.gameObject;
         }
-
-        if(hit.gameObject.tag == "Ghost")
-        {
-            if(canTakeDamage == true)
-            {
-                StartCoroutine(dontSpamDie());
-                canTakeDamage = false;
-            }
-            
-        }
     }
 
-    bool canTakeDamage = true;
-
-    IEnumerator dontSpamDie()
+    public IEnumerator dontSpamDie()
     {
         GetComponent<Player>().TakeDamage(1);
-        yield return new WaitForSeconds(1);
-        canTakeDamage = true;
+        GetComponent<CharacterController>().Move(new Vector3(1,1,0) * 50 * Time.deltaTime);
+        yield return new WaitForSeconds(2);
+        if(currentPhase == "night")
+        {
+            Instantiate(ghost, ghostSpawn.transform.position, Quaternion.identity);
+        }       
     }
 }

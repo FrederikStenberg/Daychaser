@@ -34,7 +34,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         //fireball = Resources.Load<Fireball>("Prefabs/Projectiles/Fireball");
         spawnProjectile = transform.Find("ProjectileSpawn").transform;
-        navAgent = GetComponent<NavMeshAgent>();
+        //navAgent = GetComponent<NavMeshAgent>();
         currentHealth = maxHealth;
 	}
 
@@ -135,8 +135,6 @@ public class BossTemp : MonoBehaviour, IEnemy {
         //Vector3 rotation = lookRotation.eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
-         if (Input.GetKeyDown(KeyCode.U))
-            animator.SetTrigger("ShootFire");
 
          if (fireCountdown <= 0f)
          {
@@ -166,8 +164,17 @@ public class BossTemp : MonoBehaviour, IEnemy {
                 Debug.Log("Boss set next attack to be Shoot!");
             }
             fireCountdown = fireRate;
+<<<<<<< HEAD
+=======
+
+>>>>>>> ebe44d0ff8d8fdec398cc2d4cbe7b5d40237cbf9
          }
-        Debug.Log(fireCountdown);
+        //Debug.Log(fireCountdown);
         fireCountdown -= Time.deltaTime;
     }
+
+    //void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.DrawWireSphere(transform.position, dstToTarget);
+    //}
 }

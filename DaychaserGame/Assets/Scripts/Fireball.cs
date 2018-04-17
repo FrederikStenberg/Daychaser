@@ -18,7 +18,7 @@ public class Fireball : MonoBehaviour
         Damage = 1;
         Range = 20f;
         spawnPosition = transform.position;
-        GetComponent<Rigidbody>().AddForce(Direction * 50f);
+        GetComponent<Rigidbody>().AddForce(Direction * 35f);
     }
 
     void Update()
@@ -46,7 +46,7 @@ public class Fireball : MonoBehaviour
         }
         if (col.transform.tag == "Enemy")
         {
-            Debug.Log("I hit" + col.transform.tag);
+            KillBall();
         }
         if (col.transform.tag == "InteractableObject")
         {

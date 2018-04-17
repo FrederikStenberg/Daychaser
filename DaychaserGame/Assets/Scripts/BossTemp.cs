@@ -19,7 +19,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     Transform spawnProjectile;
 
-    private float fireCountdown = 10f;
+    private float fireCountdown = 3f;
     private Transform target;
     private Player player;
     private NavMeshAgent navAgent;
@@ -100,15 +100,12 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     public void Shoot()
     {
-        
-
         GameObject fireballGO = (GameObject)Instantiate(fireballPrefab, ProjectileSpawn.position, ProjectileSpawn.rotation);
         Fireball fireball = fireballGO.GetComponent<Fireball>();
 
         playerPos = GameObject.Find("Target look").transform.position;
         ProjectileSpawn.LookAt(playerPos);
         fireball.Direction = ProjectileSpawn.forward;
-        animator.SetTrigger("ShootFire");
         if (fireball != null)
             fireball.Seek(target);
         //Fireball fireballInstance = (Fireball)Instantiate(fireball, ProjectileSpawn.position, ProjectileSpawn.rotation);
@@ -135,7 +132,8 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = lookRotation.eulerAngles;
+        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 1f).eulerAngles;
+        //Vector3 rotation = lookRotation.eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
          if (Input.GetKeyDown(KeyCode.U))
@@ -143,7 +141,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
          if (fireCountdown <= 0f)
          {
-             Shoot();
+             animator.SetTrigger("ShootFire");
              fireCountdown = fireRate;
          }
         Debug.Log(fireCountdown);

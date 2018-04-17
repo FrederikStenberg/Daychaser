@@ -12,7 +12,7 @@ public class Weapon_Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetAxisRaw("Fire") >= 0.1)
             PerformWeaponAttack();
 	}
 

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
+using System;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IPlayer{
 
     public int currentHealth;
     public int maxHealth;
@@ -23,10 +24,16 @@ public class Player : MonoBehaviour {
 
     }
 
+
     void die()
     {
         Debug.Log("You dead son");
         currentHealth = maxHealth;
+
+    }
+
+    public void PerformAttack()
+    {
 
     }
 }

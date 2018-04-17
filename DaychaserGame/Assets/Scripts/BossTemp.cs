@@ -19,11 +19,13 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     Transform spawnProjectile;
 
-    private float fireCountdown = 0f;
+    private float fireCountdown = 10f;
     private Transform target;
     private Player player;
     private NavMeshAgent navAgent;
     private Collider[] withinAggroColliders;
+
+    Vector3 playerPos;
 
 
 	void Start () {
@@ -58,19 +60,6 @@ public class BossTemp : MonoBehaviour, IEnemy {
         {
             target = null;
         }
-    }
-
-    //Fixed to optimize performance. No need to check more often than 50 times a second lol.
-	void FixedUpdate () {
-        //checks for anything within a sphere around the boss with 20 radius.
-
-        /* withinAggroColliders = Physics.OverlapSphere(transform.position, 20, aggroLayerMask);
-         if (withinAggroColliders.Length > 0)
-         {
-             //If player is within the aggro radius, this does something
-             // Takes the first player found in the Array, which is always our player
-             ChasePlayer(withinAggroColliders[0].GetComponent<Player>());
-         }*/
     }
 
     public void TakeDamage(int amount)
@@ -116,6 +105,8 @@ public class BossTemp : MonoBehaviour, IEnemy {
         GameObject fireballGO = (GameObject)Instantiate(fireballPrefab, ProjectileSpawn.position, ProjectileSpawn.rotation);
         Fireball fireball = fireballGO.GetComponent<Fireball>();
 
+        playerPos = GameObject.Find("Target look").transform.position;
+        ProjectileSpawn.LookAt(playerPos);
         fireball.Direction = ProjectileSpawn.forward;
         animator.SetTrigger("ShootFire");
         if (fireball != null)
@@ -153,9 +144,9 @@ public class BossTemp : MonoBehaviour, IEnemy {
          if (fireCountdown <= 0f)
          {
              Shoot();
-             fireCountdown = 1 / fireRate;
+             fireCountdown = fireRate;
          }
-
-         fireCountdown -= Time.deltaTime;
+        Debug.Log(fireCountdown);
+        fireCountdown -= Time.deltaTime;
     }
 }

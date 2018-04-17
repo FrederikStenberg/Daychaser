@@ -12,6 +12,8 @@ public class LightPickup : MonoBehaviour {
 
     float skyboxLerpDuration;
     float skyboxBlend;
+    float fogDensity = 0.04f;
+    float fogDensityDuration = 0;
     int collectedLightSources = 0;
     int gotAllChecker = 0;
     bool lerpMaterial = false;
@@ -33,12 +35,13 @@ public class LightPickup : MonoBehaviour {
 
         if(lerpMaterial == true)
         {
-            Debug.Log(skyboxBlend);
             skyboxLerpDuration += 0.3f * Time.deltaTime;
+            fogDensityDuration -= 0.002f * Time.deltaTime;
             skyboxBlend = Mathf.Lerp(0, 1, skyboxLerpDuration);
+            fogDensity = Mathf.Lerp(0, 0.6f, fogDensityDuration);
             directLight.GetComponent<Light>().intensity = Mathf.Lerp(0, 1, skyboxLerpDuration);
         }
-
+        RenderSettings.fogDensity = fogDensity;
         RenderSettings.skybox.SetFloat("_Blend", skyboxBlend);       
     }
 

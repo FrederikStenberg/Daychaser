@@ -7,7 +7,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     public LayerMask aggroLayerMask;
     public float currentHealth;
-    public float maxHealth;
+    public float maxHealth = 10;
     public Animator animator;
     public Vector3 Direction;
     Fireball fireballClass;

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DayCycle : MonoBehaviour {
 
-    GameObject ghost;
-    GameObject boss;
+    public GameObject boss;
     GameObject[] hearts;
     public int heartAmount;
 
@@ -13,10 +12,9 @@ public class DayCycle : MonoBehaviour {
 	void Start () {
         hearts = GameObject.FindGameObjectsWithTag("Heart");
         Debug.Log(hearts);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+        boss.SetActive(true);
+        foreach (GameObject heart in hearts) {
+            heart.SetActive(true);
+        }
 	}
 }

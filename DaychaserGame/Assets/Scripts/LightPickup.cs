@@ -82,6 +82,9 @@ public class LightPickup : MonoBehaviour {
     {
         GetComponent<Player>().TakeDamage(1);      
         yield return new WaitForSeconds(2);
-        Instantiate(ghost, ghostSpawn.transform.position, Quaternion.identity);
+        if(currentPhase == "night")
+        {
+            Instantiate(ghost, ghostSpawn.transform.position, Quaternion.identity);
+        }       
     }
 }

@@ -164,17 +164,9 @@ public class BossTemp : MonoBehaviour, IEnemy {
                 Debug.Log("Boss set next attack to be Shoot!");
             }
             fireCountdown = fireRate;
-<<<<<<< HEAD
-=======
 
->>>>>>> ebe44d0ff8d8fdec398cc2d4cbe7b5d40237cbf9
          }
         //Debug.Log(fireCountdown);
         fireCountdown -= Time.deltaTime;
     }
-
-    //void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.DrawWireSphere(transform.position, dstToTarget);
-    //}
 }

@@ -122,8 +122,11 @@ public class Phase2Controller : MonoBehaviour {
 
         if (hit.gameObject.tag == "Heart")
         {
-            hit.gameObject.SetActive(false);
-            GetComponent<Player>().currentHealth += 1;
+            if (GetComponent<Player>().currentHealth < 3)
+            {
+                hit.gameObject.SetActive(false);
+                GetComponent<Player>().currentHealth += 1;
+            }
         }
     }
 }

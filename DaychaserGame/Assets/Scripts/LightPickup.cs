@@ -13,6 +13,7 @@ public class LightPickup : MonoBehaviour {
     public GameObject ghost;
     public float distanceForGhostEffect;
     public float ghostPushForce;
+    public float playerPushForce;
 
     float skyboxLerpDuration;
     float skyboxBlend;
@@ -55,6 +56,7 @@ public class LightPickup : MonoBehaviour {
     GameObject currentObj;
 
     Vector3 tempVel;
+    Vector3 playerTempVel;
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -67,21 +69,30 @@ public class LightPickup : MonoBehaviour {
                 if(Vector3.Distance(ghost.transform.position, transform.position) < distanceForGhostEffect)
                 {
                     ghost.GetComponent<GhostSteeringScript>().enabled = false;
-                    Vector3 dir = transform.position - ghost.transform.position;
-                    dir = -dir.normalized;
                     tempVel = ghost.GetComponent<Rigidbody>().velocity;
                     ghost.GetComponent<Rigidbody>().velocity = -transform.forward * ghostPushForce;
-                    StartCoroutine(ghostCooldown()); 
                 }
             }
             currentObj = hit.gameObject;
         }
+
+        if(hit.gameObject.tag == "Ghost")
+        {
+            if(canTakeDamage == true)
+            {
+                StartCoroutine(dontSpamDie());
+                canTakeDamage = false;
+            }
+            
+        }
     }
 
-    IEnumerator ghostCooldown()
+    bool canTakeDamage = true;
+
+    IEnumerator dontSpamDie()
     {
+        GetComponent<Player>().TakeDamage(1);
         yield return new WaitForSeconds(1);
-        ghost.GetComponent<Rigidbody>().velocity = tempVel;
-        ghost.GetComponent<GhostSteeringScript>().enabled = true;
+        canTakeDamage = true;
     }
 }

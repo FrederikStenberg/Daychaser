@@ -15,7 +15,11 @@ public class GhostSteeringScript : MonoBehaviour
 
     private void Start()
     {
+        goBack = GameObject.Find("GhostBack").transform;
+        target = GameObject.Find("Player").transform;
         StartCoroutine(spawnCooldown());
+        transform.LookAt(target);
+        speed = 2;     
     }
 
     // Update is called once per frame
@@ -32,7 +36,6 @@ public class GhostSteeringScript : MonoBehaviour
             speed = 8;
             transform.position = Vector3.MoveTowards(transform.position, goBack.transform.position, speed * Time.deltaTime);
             transform.LookAt(goBack);
-            Debug.Log(Vector3.Distance(transform.position, goBack.position));
         }
 
         if (isGoingBack == true && Vector3.Distance(transform.position, goBack.position) < 1)
@@ -47,6 +50,8 @@ public class GhostSteeringScript : MonoBehaviour
         }
     }
 
+    bool canTakeDamage = true;
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag != "Player")
@@ -54,6 +59,11 @@ public class GhostSteeringScript : MonoBehaviour
             Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
         } else
         {
+            if(canTakeDamage == true)
+            {
+                StartCoroutine(waitToHit());
+                canTakeDamage = false;
+            }             
             isGoingBack = true;
             spawnCooldownCheck = false;
         }
@@ -69,5 +79,12 @@ public class GhostSteeringScript : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         Destroy(gameObject);
+    }
+
+    IEnumerator waitToHit()
+    {
+        StartCoroutine(target.gameObject.GetComponent<LightPickup>().dontSpamDie());
+        yield return new WaitForSeconds(4);
+        canTakeDamage = true;
     }
 }

@@ -11,6 +11,7 @@ public class LightPickup : MonoBehaviour {
     public GameObject directLight;
     public GameObject[] LightSourcesInScene;
     public GameObject ghost;
+    public GameObject ghostSpawn;
     public float distanceForGhostEffect;
     public float ghostPushForce;
     public float playerPushForce;
@@ -75,24 +76,15 @@ public class LightPickup : MonoBehaviour {
             }
             currentObj = hit.gameObject;
         }
-
-        if(hit.gameObject.tag == "Ghost")
-        {
-            if(canTakeDamage == true)
-            {
-                StartCoroutine(dontSpamDie());
-                canTakeDamage = false;
-            }
-            
-        }
     }
 
-    bool canTakeDamage = true;
-
-    IEnumerator dontSpamDie()
+    public IEnumerator dontSpamDie()
     {
-        GetComponent<Player>().TakeDamage(1);
-        yield return new WaitForSeconds(1);
-        canTakeDamage = true;
+        GetComponent<Player>().TakeDamage(1);      
+        yield return new WaitForSeconds(2);
+        if(currentPhase == "night")
+        {
+            Instantiate(ghost, ghostSpawn.transform.position, Quaternion.identity);
+        }       
     }
 }

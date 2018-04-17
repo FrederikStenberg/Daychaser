@@ -169,9 +169,4 @@ public class BossTemp : MonoBehaviour, IEnemy {
         //Debug.Log(fireCountdown);
         fireCountdown -= Time.deltaTime;
     }
-
-    //void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.DrawWireSphere(transform.position, dstToTarget);
-    //}
 }

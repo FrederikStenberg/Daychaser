@@ -3912,6 +3912,11 @@ Prefab:
       propertyPath: ghostSpawn
       value: 
       objectReference: {fileID: 1429092812}
+    - target: {fileID: 114438432536039022, guid: 949ca616a860b0246b52996b1c70198e,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
   m_IsPrefabParent: 0

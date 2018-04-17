@@ -48,6 +48,11 @@ public class GhostSteeringScript : MonoBehaviour
                 endOnce = false;
             }
         }
+
+        //if(target.GetComponent<LightPickup>().currentPhase == "day")
+        //{
+        //    isGoingBack = true;
+        //}
     }
 
     bool canTakeDamage = true;

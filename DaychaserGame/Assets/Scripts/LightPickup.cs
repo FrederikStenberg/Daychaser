@@ -8,11 +8,13 @@ public class LightPickup : MonoBehaviour {
     public string currentPhase = "night";
 
     public GameObject directLight;
-    public Material daySkybox;
-
     public GameObject[] LightSourcesInScene;
+
+    float skyboxLerpDuration;
+    float skyboxBlend;
     int collectedLightSources = 0;
     int gotAllChecker = 0;
+    bool lerpMaterial = false;
 
     private void Start()
     {
@@ -22,13 +24,27 @@ public class LightPickup : MonoBehaviour {
 
     private void Update()
     {
-        if (collectedLightSources == gotAllChecker)
+        if (collectedLightSources == gotAllChecker || (Input.GetKey(KeyCode.P)))
         {
             currentPhase = "day";
             Debug.Log("IT'S DAY");
-            RenderSettings.skybox = daySkybox;
-            directLight.GetComponent<Light>().enabled = true;
+            lerpMaterial = true;           
         }
+
+        if(lerpMaterial == true)
+        {
+            Debug.Log(skyboxBlend);
+            skyboxLerpDuration += 0.3f * Time.deltaTime;
+            skyboxBlend = Mathf.Lerp(0, 1, skyboxLerpDuration);
+            directLight.GetComponent<Light>().intensity = Mathf.Lerp(0, 1, skyboxLerpDuration);
+        }
+
+        RenderSettings.skybox.SetFloat("_Blend", skyboxBlend);       
+    }
+
+    private void OnApplicationQuit()
+    {
+        RenderSettings.skybox.SetFloat("_Blend", 0);
     }
 
     GameObject currentObj;

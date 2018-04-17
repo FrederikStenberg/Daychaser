@@ -13,6 +13,7 @@ public class LightPickup : MonoBehaviour {
     public GameObject ghost;
     public GameObject ghostSpawn;
     public GameObject dayCycle;
+    public GameObject toggleBossHealth;
     public float distanceForGhostEffect;
     public float ghostPushForce;
     public float playerPushForce;
@@ -37,6 +38,7 @@ public class LightPickup : MonoBehaviour {
             currentPhase = "day";
             lerpMaterial = true;
             dayCycle.SetActive(true);
+            toggleBossHealth.SetActive(true);
         }
 
         if(lerpMaterial == true)

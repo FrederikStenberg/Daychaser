@@ -55,6 +55,6 @@ public class UIMonitor : MonoBehaviour
         }
 
         lightText.text = lightScript.collectedLightSources.ToString() + "/" + lightScript.LightSourcesInScene.Length.ToString();
-        //bossText.text = bossScript.currentHealth.ToString();
+        bossText.text = bossScript.currentHealth.ToString();
     }
 }

@@ -61,7 +61,7 @@ public class PressurePlate : MonoBehaviour
     {
         if(col.gameObject.tag == "InteractableObject")
         {
-            if(Input.GetKeyDown(KeyCode.Q))
+            if(Input.GetAxisRaw("Fire") >= 0.1f)
             {
                 Bridge.GetComponent<Animator>().enabled = true;
                 StartCoroutine(SpeedAdjust());

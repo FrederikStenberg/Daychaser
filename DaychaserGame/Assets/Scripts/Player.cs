@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, IPlayer{
 
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour, IPlayer{
     {
         Debug.Log("You dead son");
         currentHealth = maxHealth;
+        SceneManager.LoadScene(0);
 
     }
 

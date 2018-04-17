@@ -140,10 +140,10 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
          if (fireCountdown <= 0f)
          {
-<<<<<<< HEAD
+
              animator.SetTrigger("ShootFire");
              fireCountdown = fireRate;
-=======
+
             Debug.Log("The distance between Boss and target is: " + Vector3.Distance(playerPos, transform.position));
             if (_attackCD)
             {
@@ -166,7 +166,6 @@ public class BossTemp : MonoBehaviour, IEnemy {
                 Debug.Log("Boss set next attack to be Shoot!");
             }
             fireCountdown = fireRate;
->>>>>>> 6a3e964fc1415f7604375e60e383c9f2217c7ea3
          }
         Debug.Log(fireCountdown);
         fireCountdown -= Time.deltaTime;

@@ -5,16 +5,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    public float currentHealth;
-    public float maxHealth;
+    public int currentHealth;
+    public int maxHealth;
 	void Start () {
-        this.currentHealth = this.maxHealth;
+        if (maxHealth <= 0 || maxHealth > 3)
+            maxHealth = 3;
+        currentHealth = maxHealth;
 	}
 
     public void TakeDamage(int amount)
     {
         Debug.Log("Player takes " + amount + " damage!");   
         currentHealth -= amount;
+        GameObject.Find("UIScripts").GetComponent<UIMonitor>().internalHealth -= 1;
         if (currentHealth <= 0)
             die();
 
@@ -23,11 +26,7 @@ public class Player : MonoBehaviour {
     void die()
     {
         Debug.Log("You dead son");
-        this.currentHealth = this.maxHealth;
+        currentHealth = maxHealth;
 
     }
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

@@ -1,7 +1,4 @@
-﻿// Jimmy Vegas Unity Tutorials
-// This Script will track your health value in episode 005
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,27 +20,38 @@ public class UIMonitor : MonoBehaviour
 
     void Start()
     {
-        healthValue = 3;
-        if (internalHealth != 0)
-            healthValue = internalHealth;
+        internalHealth = GameObject.Find("Player").GetComponent<Player>().maxHealth;
+        healthValue = internalHealth;
     }
 
 
     void Update()
     {
-        internalHealth = healthValue;
+        healthValue = internalHealth;
 
-        if (healthValue >= 1)
+        if (healthValue == 3)
         {
             heart1.SetActive(true);
-        }
-        if (healthValue >= 2)
-        {
             heart2.SetActive(true);
-        }
-        if (healthValue >= 3)
-        {
             heart3.SetActive(true);
+        }
+        if (healthValue == 2)
+        {
+            heart1.SetActive(true);
+            heart2.SetActive(true);
+            heart3.SetActive(false);
+        }
+        if (healthValue == 1)
+        {
+            heart1.SetActive(true);
+            heart2.SetActive(false);
+            heart3.SetActive(false);
+        }
+        if (healthValue == 0)
+        {
+            heart1.SetActive(false);
+            heart2.SetActive(false);
+            heart3.SetActive(false);
         }
 
         lightText.text = lightScript.LightSourcesInScene.Length.ToString();

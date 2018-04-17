@@ -15,6 +15,8 @@ public class ThirdPersonControllerCamera : MonoBehaviour
 
     float yaw;
     float pitch;
+    private float pitchC;
+    private float yawC;
 
     private void Start()
     {
@@ -31,7 +33,7 @@ public class ThirdPersonControllerCamera : MonoBehaviour
         pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity;
         pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
 
-        currentRotation = Vector3.SmoothDamp(currentRotation, new Vector3(pitch, yaw), ref rotationSmoothVelocity, rotationSmoothTime);
+        currentRotation = Vector3.SmoothDamp(currentRotation, new Vector3(pitch, yaw) + new Vector3(pitchC, yawC), ref rotationSmoothVelocity, rotationSmoothTime);
         transform.eulerAngles = currentRotation;
 
         transform.position = target.position - transform.forward * dstFromTarget;

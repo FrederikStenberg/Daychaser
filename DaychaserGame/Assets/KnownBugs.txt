@@ -1,0 +1,1 @@
+'Ghost' does not properly collide with 'Player' if 'Ghost' hits the 'Player' from below. It will instead push the 'Player' upwards.

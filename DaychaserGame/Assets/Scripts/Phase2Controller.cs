@@ -39,27 +39,8 @@ public class Phase2Controller : MonoBehaviour {
         Vector2 inputDir = input.normalized;
 
         Move(inputDir);
-        if (inputDir != Vector2.zero)
-        {
-            float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
-            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetModifiedSmoothTime(turnSmoothTime));
-        }
 
-        float targetSpeed = speed * inputDir.magnitude;
-        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, GetModifiedSmoothTime(speedSmoothTime));
-
-        velocityY += Time.deltaTime * gravity;
-        Vector3 velocity = transform.forward * currentSpeed + Vector3.up * velocityY;
-
-        controller.Move(velocity * Time.deltaTime);
-        currentSpeed = new Vector2(controller.velocity.x, controller.velocity.z).magnitude;
-
-        if (controller.isGrounded)
-        {
-            velocityY = 0;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) || _getPushedOnce)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.JoystickButton1) || _getPushedOnce)
         {
             if (_getPushedOnce)
             {
@@ -82,25 +63,25 @@ public class Phase2Controller : MonoBehaviour {
 
     void Move(Vector2 inputDir)
     {
-        //if (inputDir != Vector2.zero)
-        //{
-        //    float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
-        //    transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetModifiedSmoothTime(turnSmoothTime));
-        //}
+        if (inputDir != Vector2.zero)
+        {
+            float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
+            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetModifiedSmoothTime(turnSmoothTime));
+        }
 
-        //float targetSpeed = speed * inputDir.magnitude;
-        //currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, GetModifiedSmoothTime(speedSmoothTime));
+        float targetSpeed = speed * inputDir.magnitude;
+        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, GetModifiedSmoothTime(speedSmoothTime));
 
-        //velocityY += Time.deltaTime * gravity;
-        //Vector3 velocity = transform.forward * currentSpeed + Vector3.up * velocityY;
+        velocityY += Time.deltaTime * gravity;
+        Vector3 velocity = transform.forward * currentSpeed + Vector3.up * velocityY;
 
-        //controller.Move(velocity * Time.deltaTime);
-        //currentSpeed = new Vector2(controller.velocity.x, controller.velocity.z).magnitude;
+        controller.Move(velocity * Time.deltaTime);
+        currentSpeed = new Vector2(controller.velocity.x, controller.velocity.z).magnitude;
 
-        //if (controller.isGrounded)
-        //{
-        //    velocityY = 0;
-        //}
+        if (controller.isGrounded)
+        {
+            velocityY = 0;
+        }
     }
 
     void Jump()

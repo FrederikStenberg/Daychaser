@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, IPlayer{
     {
         Debug.Log("Player takes " + amount + " damage!");   
         currentHealth -= amount;
-        GameObject.Find("UIScripts").GetComponent<UIMonitor>().internalHealth -= 1;
+        //GameObject.Find("UIScripts").GetComponent<UIMonitor>().internalHealth -= 1;
         if (currentHealth <= 0)
             die();
 

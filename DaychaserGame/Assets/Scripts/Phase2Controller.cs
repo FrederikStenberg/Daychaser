@@ -34,6 +34,7 @@ public class Phase2Controller : MonoBehaviour {
     }
 
     void Update() {
+        Debug.Log(GetComponent<Player>().currentHealth);
         /// Input
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 inputDir = input.normalized;
@@ -117,6 +118,12 @@ public class Phase2Controller : MonoBehaviour {
             {
                 _getPushedOnce = true;
             }
+        }
+
+        if (hit.gameObject.tag == "Heart")
+        {
+            hit.gameObject.SetActive(false);
+            GetComponent<Player>().currentHealth += 1;
         }
     }
 }

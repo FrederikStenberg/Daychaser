@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Phase2Controller : MonoBehaviour {
 
@@ -54,6 +55,11 @@ public class Phase2Controller : MonoBehaviour {
                 jumpHeight /= 5;
                 _getPushedOnce = false;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
         }
 
 

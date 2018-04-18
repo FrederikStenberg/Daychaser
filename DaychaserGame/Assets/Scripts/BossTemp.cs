@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class BossTemp : MonoBehaviour, IEnemy {
 
-    public LayerMask aggroLayerMask;
+    //public LayerMask aggroLayerMask;
     public float currentHealth;
     public float maxHealth = 10;
     public Animator animator;
     public Vector3 Direction;
     Fireball fireballClass;
-    public GameObject fireballPrefab;
+    public GameObject fireballPrefab, winUI;
     public Transform ProjectileSpawn;
    
     public float range = 40f;
@@ -23,7 +23,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
     private Transform target;
     public float dstToTarget = 10;
     private Player player;
-    private NavMeshAgent navAgent;
+    //private NavMeshAgent navAgent;
     private Collider[] withinAggroColliders;
 
     Vector3 playerPos;
@@ -97,10 +97,12 @@ public class BossTemp : MonoBehaviour, IEnemy {
     {
         Destroy(gameObject);
         Debug.Log("Congratulations! You've defeated the boss of this level.");
+        winUI.SetActive(true);
     }
 
     public void Shoot()
     {
+        
         GameObject fireballGO = (GameObject)Instantiate(fireballPrefab, ProjectileSpawn.position, ProjectileSpawn.rotation);
         Fireball fireball = fireballGO.GetComponent<Fireball>();
         ProjectileSpawn.LookAt(playerPos);

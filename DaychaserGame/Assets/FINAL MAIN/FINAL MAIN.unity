@@ -4401,44 +4401,44 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4298529740109062, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
+    - target: {fileID: 4697402870515266, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
       propertyPath: m_LocalPosition.x
       value: -12.022
       objectReference: {fileID: 0}
-    - target: {fileID: 4298529740109062, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
+    - target: {fileID: 4697402870515266, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0.35
       objectReference: {fileID: 0}
-    - target: {fileID: 4298529740109062, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
+    - target: {fileID: 4697402870515266, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
       propertyPath: m_LocalPosition.z
       value: -2.08
       objectReference: {fileID: 0}
-    - target: {fileID: 4298529740109062, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
+    - target: {fileID: 4697402870515266, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4298529740109062, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
+    - target: {fileID: 4697402870515266, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
       propertyPath: m_LocalRotation.y
       value: -0.6866244
       objectReference: {fileID: 0}
-    - target: {fileID: 4298529740109062, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
+    - target: {fileID: 4697402870515266, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4298529740109062, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
+    - target: {fileID: 4697402870515266, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
       propertyPath: m_LocalRotation.w
       value: -0.72701234
       objectReference: {fileID: 0}
-    - target: {fileID: 4298529740109062, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
+    - target: {fileID: 4697402870515266, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114984950213546700, guid: 949ca616a860b0246b52996b1c70198e,
+    - target: {fileID: 114090261185950334, guid: 949ca616a860b0246b52996b1c70198e,
         type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 1485819199}
-    - target: {fileID: 114984950213546700, guid: 949ca616a860b0246b52996b1c70198e,
+    - target: {fileID: 114090261185950334, guid: 949ca616a860b0246b52996b1c70198e,
         type: 2}
       propertyPath: goBack
       value: 
@@ -6576,7 +6576,7 @@ MonoBehaviour:
   - {fileID: 834979493}
   - {fileID: 1802633020}
   - {fileID: 1375385772}
-  ghost: {fileID: 1766920737454368, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
+  ghost: {fileID: 1731963076425006, guid: 949ca616a860b0246b52996b1c70198e, type: 2}
   ghostSpawn: {fileID: 1429092812}
   dayCycle: {fileID: 1586389374}
   toggleBossHealth: {fileID: 1817971971}

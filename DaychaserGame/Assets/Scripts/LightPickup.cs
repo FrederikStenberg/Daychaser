@@ -39,6 +39,7 @@ public class LightPickup : MonoBehaviour {
             lerpMaterial = true;
             dayCycle.SetActive(true);
             toggleBossHealth.SetActive(true);
+            Destroy(GameObject.FindGameObjectWithTag("Ghost"));
         }
 
         if(lerpMaterial == true)

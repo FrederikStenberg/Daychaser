@@ -5,71 +5,91 @@ using UnityEngine.AI;
 
 public class GhostSteeringScript : MonoBehaviour
 {
-
     public Transform target;
-    private CharacterController controller;
-    private Collider collider;
-
-    private Vector3 velocity, seekVel;
-    private Vector3 defaultPos;
-
+    public Transform goBack;
     public float speed = 2;
 
-    /*public*/ float seekWeight = 1f;
-    /*public*/ float maxForce = 2f;
+    bool spawnCooldownCheck = false;
+    bool isGoingBack = false;
+    bool endOnce = true;
 
-    // Use this for initialization
-    void Start()
+    private void Start()
     {
-        collider = gameObject.GetComponent<Collider>();
-        velocity = gameObject.GetComponent<Rigidbody>().velocity;
-        defaultPos = transform.position;
+        goBack = GameObject.Find("GhostBack").transform;
+        target = GameObject.Find("Player").transform;
+        StartCoroutine(spawnCooldown());
+        transform.LookAt(target);
+        speed = 2;     
     }
 
     // Update is called once per frame
     void Update()
     {
-        /// AI Steering script using Seek (bugs out after a bit of time)s
-        //seekVel += Seek() * seekWeight;
-        //if (seekVel.magnitude >= maxSpeed)
-        //{
-        //    velocity = Vector3.ClampMagnitude(seekVel, maxSpeed);
-        //}
-        //transform.position += velocity * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
-
-        transform.LookAt(target);
-    }
-
-    /// Unused function
-    private Vector3 Seek()
-    {
-        Vector3 steer = Vector3.zero;
-        Vector3 desired = target.position - transform.position;
-        float dist = desired.magnitude;
-        desired = desired.normalized;
-        desired *= speed;
-
-        steer = desired - velocity;
-        if (steer.magnitude > speed)
+        if(spawnCooldownCheck == true)
         {
-            steer.Scale(new Vector3(maxForce, maxForce, maxForce));
+            GetComponent<Animator>().enabled = false;
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+            transform.LookAt(target);
+        }  
+
+        if(isGoingBack == true && Vector3.Distance(transform.position, goBack.position) > 0.2f) {
+            speed = 8;
+            transform.position = Vector3.MoveTowards(transform.position, goBack.transform.position, speed * Time.deltaTime);
+            transform.LookAt(goBack);
         }
 
-        Debug.DrawLine(transform.position, transform.position + steer, Color.blue);
-        return steer.normalized;
+        if (isGoingBack == true && Vector3.Distance(transform.position, goBack.position) < 1)
+        {
+            GetComponent<Animator>().enabled = true;
+            GetComponent<Animator>().SetTrigger("trigger");
+            if(endOnce == true)
+            {
+                StartCoroutine(waitToDie());
+                endOnce = false;
+            }
+        }
+
+        if(target.GetComponent<LightPickup>().currentPhase == "day")
+        {
+            isGoingBack = true;
+        }
     }
+
+    bool canTakeDamage = true;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if(collision.gameObject.tag != "Player")
         {
-            transform.position = defaultPos;
-            collision.gameObject.GetComponent<Player>().TakeDamage(1);
-        }
-        else
+            Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+        } else
         {
-            Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), collider);
+            if(canTakeDamage == true)
+            {
+                StartCoroutine(waitToHit());
+                canTakeDamage = false;
+            }             
+            isGoingBack = true;
+            spawnCooldownCheck = false;
         }
+    }
+
+    IEnumerator spawnCooldown()
+    {
+        yield return new WaitForSeconds(3);
+        spawnCooldownCheck = true;
+    }
+
+    IEnumerator waitToDie()
+    {
+        yield return new WaitForSeconds(3);
+        Destroy(gameObject);
+    }
+
+    IEnumerator waitToHit()
+    {
+        StartCoroutine(target.gameObject.GetComponent<LightPickup>().dontSpamDie());
+        yield return new WaitForSeconds(4);
+        canTakeDamage = true;
     }
 }

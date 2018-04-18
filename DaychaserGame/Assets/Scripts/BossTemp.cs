@@ -7,7 +7,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     public LayerMask aggroLayerMask;
     public float currentHealth;
-    public float maxHealth;
+    public float maxHealth = 10;
     public Animator animator;
     public Vector3 Direction;
     Fireball fireballClass;
@@ -19,21 +19,22 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     Transform spawnProjectile;
 
-    private float fireCountdown = 10f;
+    private float fireCountdown = 3f;
     private Transform target;
+    public float dstToTarget = 10;
     private Player player;
     private NavMeshAgent navAgent;
     private Collider[] withinAggroColliders;
 
     Vector3 playerPos;
+    private bool _attackCD = false;
 
-
-	void Start () {
+    void Start () {
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         //fireball = Resources.Load<Fireball>("Prefabs/Projectiles/Fireball");
         spawnProjectile = transform.Find("ProjectileSpawn").transform;
-        navAgent = GetComponent<NavMeshAgent>();
+        //navAgent = GetComponent<NavMeshAgent>();
         currentHealth = maxHealth;
 	}
 
@@ -100,19 +101,13 @@ public class BossTemp : MonoBehaviour, IEnemy {
 
     public void Shoot()
     {
-        
-
         GameObject fireballGO = (GameObject)Instantiate(fireballPrefab, ProjectileSpawn.position, ProjectileSpawn.rotation);
         Fireball fireball = fireballGO.GetComponent<Fireball>();
-
-        playerPos = GameObject.Find("Target look").transform.position;
         ProjectileSpawn.LookAt(playerPos);
         fireball.Direction = ProjectileSpawn.forward;
-        animator.SetTrigger("ShootFire");
         if (fireball != null)
             fireball.Seek(target);
         //Fireball fireballInstance = (Fireball)Instantiate(fireball, ProjectileSpawn.position, ProjectileSpawn.rotation);
-
     }
 
     public void PerformAttack()
@@ -133,20 +128,45 @@ public class BossTemp : MonoBehaviour, IEnemy {
         if (target == null)
             return;
 
-        Vector3 dir = target.position - transform.position;
+        playerPos = GameObject.Find("Target look").transform.position;
+        Vector3 dir = playerPos - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = lookRotation.eulerAngles;
+        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 1f).eulerAngles;
+        //Vector3 rotation = lookRotation.eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
-         if (Input.GetKeyDown(KeyCode.U))
-            animator.SetTrigger("ShootFire");
 
          if (fireCountdown <= 0f)
          {
-             Shoot();
+
+             animator.SetTrigger("ShootFire");
              fireCountdown = fireRate;
+
+            Debug.Log("The distance between Boss and target is: " + Vector3.Distance(playerPos, transform.position));
+            if (_attackCD)
+            {
+                Debug.Log("Boss tried to Melee the target!");
+                PerformAttack();
+            }
+            else
+            {
+                Shoot();
+                Debug.Log("Boss tried to Shoot the target!");
+            }
+
+            if (Vector3.Distance(playerPos, transform.position) <= dstToTarget)
+            {
+                Debug.Log("Boss set next attack to be Melee!");
+                _attackCD = true;
+            }
+            else
+            {
+                Debug.Log("Boss set next attack to be Shoot!");
+            }
+            fireCountdown = fireRate;
+
          }
-        Debug.Log(fireCountdown);
+        //Debug.Log(fireCountdown);
         fireCountdown -= Time.deltaTime;
     }
 }

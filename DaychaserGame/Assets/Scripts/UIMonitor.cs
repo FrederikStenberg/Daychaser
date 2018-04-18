@@ -7,7 +7,6 @@ public class UIMonitor : MonoBehaviour
 {
 
     public static int healthValue;
-    public int internalHealth;
     public GameObject heart1;
     public GameObject heart2;
     public GameObject heart3;
@@ -20,14 +19,13 @@ public class UIMonitor : MonoBehaviour
 
     void Start()
     {
-        internalHealth = GameObject.Find("Player").GetComponent<Player>().maxHealth;
-        healthValue = internalHealth;
+        healthValue = GameObject.Find("Player").GetComponent<Player>().maxHealth;
     }
 
 
     void Update()
     {
-        healthValue = internalHealth;
+        healthValue = GameObject.Find("Player").GetComponent<Player>().currentHealth;
 
         if (healthValue == 3)
         {
@@ -55,6 +53,6 @@ public class UIMonitor : MonoBehaviour
         }
 
         lightText.text = lightScript.collectedLightSources.ToString() + "/" + lightScript.LightSourcesInScene.Length.ToString();
-        //bossText.text = bossScript.currentHealth.ToString();
+        bossText.text = bossScript.currentHealth.ToString();
     }
 }

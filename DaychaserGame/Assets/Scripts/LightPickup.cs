@@ -11,8 +11,12 @@ public class LightPickup : MonoBehaviour {
     public GameObject directLight;
     public GameObject[] LightSourcesInScene;
     public GameObject ghost;
+    public GameObject ghostSpawn;
+    public GameObject dayCycle;
+    public GameObject toggleBossHealth;
     public float distanceForGhostEffect;
     public float ghostPushForce;
+    public float playerPushForce;
 
     float skyboxLerpDuration;
     float skyboxBlend;
@@ -32,7 +36,10 @@ public class LightPickup : MonoBehaviour {
         if (collectedLightSources == gotAllChecker || (Input.GetKey(KeyCode.P)))
         {
             currentPhase = "day";
-            lerpMaterial = true;           
+            lerpMaterial = true;
+            dayCycle.SetActive(true);
+            toggleBossHealth.SetActive(true);
+            Destroy(GameObject.FindGameObjectWithTag("Ghost"));
         }
 
         if(lerpMaterial == true)
@@ -55,6 +62,7 @@ public class LightPickup : MonoBehaviour {
     GameObject currentObj;
 
     Vector3 tempVel;
+    Vector3 playerTempVel;
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -67,21 +75,22 @@ public class LightPickup : MonoBehaviour {
                 if(Vector3.Distance(ghost.transform.position, transform.position) < distanceForGhostEffect)
                 {
                     ghost.GetComponent<GhostSteeringScript>().enabled = false;
-                    Vector3 dir = transform.position - ghost.transform.position;
-                    dir = -dir.normalized;
                     tempVel = ghost.GetComponent<Rigidbody>().velocity;
                     ghost.GetComponent<Rigidbody>().velocity = -transform.forward * ghostPushForce;
-                    StartCoroutine(ghostCooldown()); 
                 }
             }
             currentObj = hit.gameObject;
         }
     }
 
-    IEnumerator ghostCooldown()
+    public IEnumerator dontSpamDie()
     {
-        yield return new WaitForSeconds(1);
-        ghost.GetComponent<Rigidbody>().velocity = tempVel;
-        ghost.GetComponent<GhostSteeringScript>().enabled = true;
+        GetComponent<Player>().TakeDamage(1);
+        GetComponent<CharacterController>().Move(new Vector3(1,1,0) * 50 * Time.deltaTime);
+        yield return new WaitForSeconds(2);
+        if(currentPhase == "night")
+        {
+            Instantiate(ghost, ghostSpawn.transform.position, Quaternion.identity);
+        }       
     }
 }

@@ -47,6 +47,7 @@ public class Phase2Controller : MonoBehaviour {
             if (_getPushedOnce)
             {
                 jumpHeight *= 5;
+                FindObjectOfType<AudioManager>().Play("boing");
             }
             Jump();
             animator.Play(jumpHash);

@@ -29,12 +29,14 @@ public class LightPickup : MonoBehaviour {
     {
         LightSourcesInScene = GameObject.FindGameObjectsWithTag("collectableLightSource");
         gotAllChecker = LightSourcesInScene.Length;
+        FindObjectOfType<AudioManager>().Play("Nightmusic");
     }
 
     private void Update()
     {
         if (collectedLightSources == gotAllChecker || (Input.GetKey(KeyCode.P)))
         {
+            FindObjectOfType<AudioManager>().sounds[5].source.Pause();
             currentPhase = "day";
             lerpMaterial = true;
             dayCycle.SetActive(true);

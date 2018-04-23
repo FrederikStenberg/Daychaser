@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c869b866cead50343b0a6bab0de78ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 4238789703249750, guid: 22c725914f365284197e321b052f9420, type: 2}
   goBack: {fileID: 0}
   speed: 2
 --- !u!136 &136166775979963448

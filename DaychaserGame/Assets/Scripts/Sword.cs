@@ -20,6 +20,7 @@ public class Sword : MonoBehaviour {
     {
         if (col.tag == "Enemy")
         {
+            FindObjectOfType<AudioManager>().Play("slash");
             col.GetComponent<IEnemy>().TakeDamage(1);
         }
     }

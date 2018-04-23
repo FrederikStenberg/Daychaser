@@ -98,6 +98,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
         Destroy(gameObject);
         Debug.Log("Congratulations! You've defeated the boss of this level.");
         winUI.SetActive(true);
+        FindObjectOfType<AudioManager>().Play("victory");
     }
 
     public void Shoot()
@@ -106,6 +107,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
         GameObject fireballGO = (GameObject)Instantiate(fireballPrefab, ProjectileSpawn.position, ProjectileSpawn.rotation);
         Fireball fireball = fireballGO.GetComponent<Fireball>();
         ProjectileSpawn.LookAt(playerPos);
+        FindObjectOfType<AudioManager>().Play("fireball");
         fireball.Direction = ProjectileSpawn.forward;
         if (fireball != null)
             fireball.Seek(target);
@@ -115,6 +117,7 @@ public class BossTemp : MonoBehaviour, IEnemy {
     public void PerformAttack()
     {
         animator.SetTrigger("BossAtk");
+        FindObjectOfType<AudioManager>().Play("boss single punch");
     }
 
     void OnTriggerEnter(Collider col)

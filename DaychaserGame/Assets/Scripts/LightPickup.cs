@@ -73,6 +73,7 @@ public class LightPickup : MonoBehaviour {
                 Destroy(hit.gameObject);
                 collectedLightSources += 1;
                 if(Vector3.Distance(ghost.transform.position, transform.position) < distanceForGhostEffect)
+                FindObjectOfType<AudioManager>().Play("pickup");
                 {
                     ghost.GetComponent<GhostSteeringScript>().enabled = false;
                     tempVel = ghost.GetComponent<Rigidbody>().velocity;

@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IPlayer{
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && currentHealth <= 0)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene(0);
         }

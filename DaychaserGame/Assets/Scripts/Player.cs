@@ -15,6 +15,14 @@ public class Player : MonoBehaviour, IPlayer{
         currentHealth = maxHealth;
 	}
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && currentHealth <= 0)
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
+
     public void TakeDamage(int amount)
     {
         Debug.Log("Player takes " + amount + " damage!");   
@@ -24,13 +32,16 @@ public class Player : MonoBehaviour, IPlayer{
 
     }
 
+    public GameObject deadItem;
+    public GameObject sword;
 
     void die()
     {
         Debug.Log("You dead son");
-        currentHealth = maxHealth;
-        SceneManager.LoadScene(0);
-
+        GetComponent<CharacterController>().enabled = false;
+        GetComponent<Phase2Controller>().enabled = false;
+        Destroy(sword);
+        deadItem.SetActive(true);
     }
 
     public void PerformAttack()

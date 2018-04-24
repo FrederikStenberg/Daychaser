@@ -58,12 +58,6 @@ public class Phase2Controller : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene(0);
-        }
-
-
         /// Animations
         float animationSpeedPercent = currentSpeed / speed;
         animator.SetFloat("Walk", animationSpeedPercent, speedSmoothTime, Time.deltaTime);

@@ -25,6 +25,7 @@ public class Player : MonoBehaviour, IPlayer{
 
     public void TakeDamage(int amount)
     {
+        FindObjectOfType<AudioManager>().Play("grunt");
         Debug.Log("Player takes " + amount + " damage!");   
         currentHealth -= amount;
         if (currentHealth <= 0)

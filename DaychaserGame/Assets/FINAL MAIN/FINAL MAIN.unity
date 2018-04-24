@@ -5349,6 +5349,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: grunt
+    clip: {fileID: 8300000, guid: 3154fcb440efe304ca4039d3317cfbd8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!4 &1346979041
 Transform:
   m_ObjectHideFlags: 0

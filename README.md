@@ -1,2 +1,2 @@
 # Daychaser
-uno dos tre fire
+Simple game for a Game Design course on MED6.
